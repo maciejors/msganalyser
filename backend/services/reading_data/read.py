@@ -293,6 +293,10 @@ def __read_extracted_data(path: str) -> pd.DataFrame:
     full_data['day'] = date_series.map(lambda d: d.day).astype(np.int8)
     full_data['hour'] = date_series.map(lambda d: d.hour).astype(np.int8)
 
+    # specify whether the message was sent by the data owner
+    data_owner = infer_data_owner(full_data)
+    full_data['is_owner'] = full_data['sender_name'] == data_owner
+
     return full_data
 
 
