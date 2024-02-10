@@ -2,5 +2,5 @@ cd backend
 pip install virtualenv
 python3 -m venv venv
 source venv/bin/activate
-pip install numpy==1.26.3 pandas==2.2.0 fastapi==0.109.0 uvicorn
+pip install -r requirements.txt
 uvicorn main:app
