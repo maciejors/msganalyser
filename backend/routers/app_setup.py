@@ -20,9 +20,13 @@ async def setup(request: Request, config: ConfigurationModel):
     request.app.state.data_owner = data_owner
 
 
-@router.get('/')
+@router.get(
+    '/', 
+    responses={404: {"description": 'Data is yet to be read'}},
+
+)
 async def get_data_owner(request: Request):
     try:
         return { 'data_owner': request.app.state.data_owner }
     except AttributeError:
-        raise HTTPException(status_code=404, detail="Data is yet to be read")
+        raise HTTPException(status_code=404, detail='Data is yet to be read')
