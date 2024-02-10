@@ -3,9 +3,13 @@ import os
 import re
 import shutil
 from zipfile import ZipFile
+import logging
 
 import numpy as np
 import pandas as pd
+
+
+_logger = logging.getLogger('services.reading_data')
 
 
 def __extract_merged_inbox(fb_data_folder_path: str) -> str:
@@ -23,7 +27,14 @@ def __extract_merged_inbox(fb_data_folder_path: str) -> str:
     Returns:
         A path to a folder with extracted data
     """
-    print('Preparing for data extraction... ')
+    _logger.info('Preparing for data extraction...')
+
+    # initial inspection of data - see how many zip files there are
+    all_files = os.listdir(fb_data_folder_path)
+    zip_files = [filename for filename in all_files if filename.endswith('.zip')]
+    n_of_files = len(zip_files)
+    if n_of_files == 0:
+        raise FileNotFoundError('No facebook data found.')
 
     # a path where the contents extracted from the zipfiles will be stored
     extr_temp_dir = os.path.join(fb_data_folder_path,
@@ -38,20 +49,17 @@ def __extract_merged_inbox(fb_data_folder_path: str) -> str:
         readme.write('You can safely delete this directory (unless the '
                      'program is still running)')
 
-    print('done')
+    _logger.info('Done')
 
     # unzip data and place it in a temporary directory
-    all_files = os.listdir(fb_data_folder_path)
-    zip_files = [filename for filename in all_files if filename.endswith('.zip')]
-    n_of_files = len(zip_files)
     for i, filename in enumerate(zip_files):
-        print(f'Extracting data (file {i+1}/{n_of_files})... ')
+        _logger.info(f'Extracting data (file {i+1}/{n_of_files})...')
         with ZipFile(os.path.join(fb_data_folder_path, filename), 'r') as fbzip:
             fbzip.extractall(os.path.join(extr_temp_dir, str(i)))
-        print('done')
+        _logger.info('Done')
 
     # merge the data
-    print('Merging data... ')
+    _logger.info('Merging data...')
 
     output_path = os.path.join(fb_data_folder_path, 
                                f'extracted-{np.random.randint(0, 100000)}')
@@ -98,7 +106,7 @@ def __extract_merged_inbox(fb_data_folder_path: str) -> str:
                         # increment so that every moved file has a unique name
                         chat_msgfiles_counts[chat_name] += 1
 
-    print('done')
+    _logger.info('Done')
 
     # remove the temporary directory
     shutil.rmtree(extr_temp_dir)
