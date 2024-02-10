@@ -1,3 +1,6 @@
+# data
+*.zip
+
 # backend
 __pycache__/
 venv/
