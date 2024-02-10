@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 
-from .routers import chats, activity, app_setup
+from backend.routers import chats, activity, app_setup
 
 app = FastAPI()
 app.include_router(app_setup.router)
