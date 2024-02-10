@@ -2,8 +2,9 @@ import json
 import os
 import re
 import shutil
-from zipfile import ZipFile
 import logging
+from zipfile import ZipFile
+from datetime import datetime
 
 import numpy as np
 import pandas as pd
@@ -61,7 +62,7 @@ def __extract_merged_inbox(fb_data_folder_path: str) -> str:
     # merge the data
     _logger.info('Merging data...')
 
-    output_path = os.path.join(fb_data_folder_path, 
+    output_path = os.path.join(fb_data_folder_path,
                                f'extracted-{np.random.randint(0, 100000)}')
     os.makedirs(output_path, exist_ok=False)
 
@@ -257,8 +258,6 @@ def __read_extracted_data(path: str) -> pd.DataFrame:
 
     Args:
         path: Path to the folder with message history
-        purge_contents: Whether or not to wipe messages contents 
-            (reduces in-memory size)
     
     Returns:
         A data frame with the full messenger data
@@ -280,10 +279,19 @@ def __read_extracted_data(path: str) -> pd.DataFrame:
         )
         messenger_data.append(chat_df)
 
-    full_data = pd.concat(messenger_data)
-
     # remove the directory with extracted data
     shutil.rmtree(path)
+
+    # reset index
+    full_data = pd.concat(messenger_data)\
+        .reset_index(drop=True)
+
+    # add year/month/day/hour columns
+    date_series = full_data['timestamp_ms'].map(lambda t: datetime.fromtimestamp(t / 1000))
+    full_data['year'] = date_series.map(lambda d: d.year).astype(np.int16)
+    full_data['month'] = date_series.map(lambda d: d.month).astype(np.int8)
+    full_data['day'] = date_series.map(lambda d: d.day).astype(np.int8)
+    full_data['hour'] = date_series.map(lambda d: d.hour).astype(np.int8)
 
     return full_data
 
