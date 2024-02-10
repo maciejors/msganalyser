@@ -1,6 +1,6 @@
 from fastapi import APIRouter, Request, HTTPException
-from backend.models.app_setup import ConfigurationModel
 
+from backend.models.app_setup import ConfigurationModel
 from backend.services.reading_data.read import (
     read_messenger_data, infer_data_owner,
 )
@@ -23,7 +23,6 @@ async def setup(request: Request, config: ConfigurationModel):
 @router.get(
     '/', 
     responses={404: {"description": 'Data is yet to be read'}},
-
 )
 async def get_data_owner(request: Request):
     try:
