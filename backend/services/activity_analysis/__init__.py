@@ -1,6 +1,6 @@
-from .by_year import msg_per_year
+from .by_year import msg_by_year
 
 
 __all__ = [
-    'msg_per_year',
+    'msg_by_year',
 ]

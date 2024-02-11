@@ -1,9 +1,9 @@
 import pandas as pd
 
 
-def msg_per_year(df: pd.DataFrame) -> pd.DataFrame:
+def msg_by_year(df: pd.DataFrame) -> pd.DataFrame:
     """
-    Number of messages per year
+    Total number of messages by year
     """
     result = df[['year', 'sender_name']] \
         .groupby('year') \
