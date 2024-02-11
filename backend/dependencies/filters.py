@@ -1,10 +1,18 @@
+from abc import ABC, abstractmethod
 from typing import Literal, Annotated
 
 import pandas as pd
 from fastapi import Depends
 
 
-class StandardFilters:
+class Filters(ABC):
+
+    @abstractmethod
+    def apply(self, df: pd.DataFrame) -> pd.DataFrame:
+        raise NotImplementedError()
+
+
+class StandardFilters(Filters):
     __slots__ = ['timestamp_ms_from', 'timestamp_ms_to', 'chat_type', 'message_type']
 
     def __init__(self,

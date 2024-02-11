@@ -3,7 +3,7 @@ from typing import Callable, Any, TypeVar
 import pandas as pd
 from pydantic import BaseModel
 
-from backend.dependencies.filters import StandardFilters
+from backend.dependencies.filters import Filters
 
 
 T = TypeVar('T', bound=BaseModel)
@@ -12,7 +12,7 @@ T = TypeVar('T', bound=BaseModel)
 def standard_functionality_wrapper(
         func: Callable[[pd.DataFrame], pd.DataFrame],
         df: pd.DataFrame,
-        filters: StandardFilters,
+        filters: Filters,
         out_model: Callable[[Any], T]) -> T:
     """
     Args:
