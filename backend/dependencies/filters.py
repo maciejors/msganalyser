@@ -38,7 +38,7 @@ class StandardFilters(Filters):
 
         if self.message_type == 'sent':
             df = df[df['is_owner']]
-        elif self.chat_type == 'private':
+        elif self.message_type == 'received':
             df = df[~df['is_owner']]
 
         return df
