@@ -3,13 +3,13 @@ from typing import Callable
 import pandas as pd
 
 from backend.dependencies.filters import StandardFilters
-from backend.models.analysis import TwoDimensionalData
+from backend.models.analysis import DatetimeStat1D
 
 
 def standard_functionality_wrapper(
         func: Callable[[pd.DataFrame], pd.DataFrame],
         df: pd.DataFrame,
-        filters: StandardFilters) -> TwoDimensionalData:
+        filters: StandardFilters) -> DatetimeStat1D:
     """
     Args:
         func: A functionality callable
@@ -25,4 +25,4 @@ def standard_functionality_wrapper(
     out_df = func(filtered_df)
     # 3. change the results type
     data_dict = out_df.to_dict(orient='list')
-    return TwoDimensionalData(**data_dict)
+    return DatetimeStat1D(**data_dict)

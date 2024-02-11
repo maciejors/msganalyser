@@ -4,7 +4,7 @@ from backend.dependencies.errors import DataNotReadException
 from backend.dependencies.filters import StandardFiltersAnnotated
 from backend.dependencies.wrappers import standard_functionality_wrapper
 from backend.models.common import BaseAppErrorModel
-from backend.models.analysis import TwoDimensionalData
+from backend.models.analysis import DatetimeStat1D
 
 from backend.services.activity_analysis.by_year import msg_by_year
 from backend.services.activity_analysis.by_month import msg_by_month, avg_msg_by_calendar_month
@@ -22,7 +22,7 @@ router = APIRouter(
 
 
 @router.get('/msg_by_year')
-async def get_msg_by_year(request: Request, filters: StandardFiltersAnnotated) -> TwoDimensionalData:
+async def get_msg_by_year(request: Request, filters: StandardFiltersAnnotated) -> DatetimeStat1D:
     try:
         df = request.app.state.data_df
     except AttributeError:
@@ -32,7 +32,7 @@ async def get_msg_by_year(request: Request, filters: StandardFiltersAnnotated) -
 
 
 @router.get('/msg_by_month')
-async def get_msg_by_month(request: Request, filters: StandardFiltersAnnotated) -> TwoDimensionalData:
+async def get_msg_by_month(request: Request, filters: StandardFiltersAnnotated) -> DatetimeStat1D:
     try:
         df = request.app.state.data_df
     except AttributeError:
@@ -43,7 +43,7 @@ async def get_msg_by_month(request: Request, filters: StandardFiltersAnnotated) 
 
 @router.get('/avg_msg_by_calendar_month')
 async def get_avg_msg_by_calendar_month(request: Request,
-                                        filters: StandardFiltersAnnotated) -> TwoDimensionalData:
+                                        filters: StandardFiltersAnnotated) -> DatetimeStat1D:
     try:
         df = request.app.state.data_df
     except AttributeError:
@@ -53,7 +53,7 @@ async def get_avg_msg_by_calendar_month(request: Request,
 
 
 @router.get('/msg_by_day')
-async def get_msg_by_day(request: Request, filters: StandardFiltersAnnotated) -> TwoDimensionalData:
+async def get_msg_by_day(request: Request, filters: StandardFiltersAnnotated) -> DatetimeStat1D:
     try:
         df = request.app.state.data_df
     except AttributeError:
@@ -63,7 +63,7 @@ async def get_msg_by_day(request: Request, filters: StandardFiltersAnnotated) ->
 
 
 @router.get('/msg_by_time_of_day')
-async def get_msg_by_time_of_day(request: Request, filters: StandardFiltersAnnotated) -> TwoDimensionalData:
+async def get_msg_by_time_of_day(request: Request, filters: StandardFiltersAnnotated) -> DatetimeStat1D:
     try:
         df = request.app.state.data_df
     except AttributeError:
