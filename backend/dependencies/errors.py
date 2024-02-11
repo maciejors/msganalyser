@@ -1,0 +1,2 @@
+class DataNotReadException(Exception):
+    pass

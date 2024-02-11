@@ -1,10 +1,12 @@
-from fastapi import APIRouter, Request, HTTPException
+from fastapi import APIRouter, Request
+from fastapi.responses import JSONResponse
 
 from backend.models.app_setup import ConfigurationModel, DataOwnerModel
+from backend.models.common import BaseAppErrorModel
 from backend.services.reading_data.read import (
     read_messenger_data, infer_data_owner,
 )
-
+from backend.dependencies.errors import DataNotReadException
 
 router = APIRouter(
     prefix='/setup',
@@ -12,9 +14,22 @@ router = APIRouter(
 )
 
 
-@router.put('/')
-async def setup(request: Request, config: ConfigurationModel) -> DataOwnerModel:
-    full_data_df = read_messenger_data(config.data_path, purge_contents=True)
+@router.put(
+    '/',
+    response_model=DataOwnerModel,
+    responses={404: {
+        'description': 'Data not found in the specified location',
+        'model': BaseAppErrorModel,
+    }},
+)
+async def setup(request: Request, config: ConfigurationModel):
+    try:
+        full_data_df = read_messenger_data(config.data_path, purge_contents=True)
+    except FileNotFoundError:
+        return JSONResponse(
+            status_code=404,
+            content={'message': 'Facebook data not found in the specified location'}
+        )
     data_owner = infer_data_owner(full_data_df)
     request.app.state.data_df = full_data_df
     request.app.state.data_owner = data_owner
@@ -22,11 +37,14 @@ async def setup(request: Request, config: ConfigurationModel) -> DataOwnerModel:
 
 
 @router.get(
-    '/', 
-    responses={404: {'description': 'Data is yet to be read'}},
+    '/',
+    responses={404: {
+        'description': 'Data is yet to be read',
+        'model': BaseAppErrorModel,
+    }},
 )
 async def get_data_owner(request: Request) -> DataOwnerModel:
     try:
         return DataOwnerModel(data_owner=request.app.state.data_owner)
     except AttributeError:
-        raise HTTPException(status_code=404, detail='Data is yet to be read')
+        raise DataNotReadException()
