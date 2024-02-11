@@ -10,8 +10,16 @@
 		"postinstall": "nuxt prepare"
 	},
 	"devDependencies": {
+		"autoprefixer": "^10.4.17",
 		"nuxt": "^3.9.3",
+		"postcss": "^8.4.35",
+		"tailwindcss": "^3.4.1",
 		"vue": "^3.4.14",
 		"vue-router": "^4.2.5"
+	},
+	"dependencies": {
+		"axios": "^1.6.7",
+		"chart.js": "^4.4.1",
+		"vue-chartjs": "^5.3.0"
 	}
 }
