@@ -9,7 +9,6 @@ from datetime import datetime
 import numpy as np
 import pandas as pd
 
-
 _logger = logging.getLogger('services.reading_data')
 
 
@@ -54,7 +53,7 @@ def __extract_merged_inbox(fb_data_folder_path: str) -> str:
 
     # unzip data and place it in a temporary directory
     for i, filename in enumerate(zip_files):
-        _logger.info(f'Extracting data (file {i+1}/{n_of_files})...')
+        _logger.info(f'Extracting data (file {i + 1}/{n_of_files})...')
         with ZipFile(os.path.join(fb_data_folder_path, filename), 'r') as fbzip:
             fbzip.extractall(os.path.join(extr_temp_dir, str(i)))
         _logger.info('Done')
@@ -283,7 +282,7 @@ def __read_extracted_data(path: str) -> pd.DataFrame:
     shutil.rmtree(path)
 
     # reset index
-    full_data = pd.concat(messenger_data)\
+    full_data = pd.concat(messenger_data) \
         .reset_index(drop=True)
 
     # add year/month/day/hour columns
@@ -331,29 +330,29 @@ def infer_data_owner(full_data: pd.DataFrame) -> str:
         full_data: full messages data
     """
     # step 1: filter data to chats with 2 participants
-    chats_senders = full_data\
-        [full_data['participants_count'] == 2]\
-        [['conversation_name', 'sender_name']]\
+    chats_senders = full_data \
+        [full_data['participants_count'] == 2] \
+        [['conversation_name', 'sender_name']] \
         .drop_duplicates()
     # step 2: find the number of people who sent at least 1 message for each chat
-    chats_sender_counts = chats_senders\
-        .groupby('conversation_name')\
-        .count()\
-        .reset_index()\
+    chats_sender_counts = chats_senders \
+        .groupby('conversation_name') \
+        .count() \
+        .reset_index() \
         .rename(columns={'sender_name': 'conversation_sender_count'})
     # step 3: merge both data frames to enable filtering
-    chats_senders = chats_senders\
+    chats_senders = chats_senders \
         .merge(chats_sender_counts, on='conversation_name')
     # step 4: filter out chats with less than 2 senders,
     # count how many times in general each sender appears.
-    senders_counts = chats_senders\
-        [chats_senders['conversation_sender_count'] == 2]\
-        .groupby('sender_name')\
-        .count()\
-        .reset_index()\
+    senders_counts = chats_senders \
+        [chats_senders['conversation_sender_count'] == 2] \
+        .groupby('sender_name') \
+        .count() \
+        .reset_index() \
         .rename(columns={'conversation_name': 'count'})
     # step 5: argmax = data owner
-    owner_name = senders_counts\
-        .iloc[senders_counts['count'].idxmax()]\
+    owner_name = senders_counts \
+        .iloc[senders_counts['count'].idxmax()] \
         ['sender_name']
     return owner_name
