@@ -140,11 +140,11 @@ def __read_single_message_json(path: str) -> pd.DataFrame:
     
     Returns:
         A data frame containing the message history as well as the
-        conversation title and its type
+        chat title and its number of participants
     """
     with open(path) as file:
         raw_data_full = json.load(file)
-        conversation_name = __fix_fb_encoding(raw_data_full['title'])
+        chat_name = __fix_fb_encoding(raw_data_full['title'])
         participants = raw_data_full['participants']
         raw_msg_data = raw_data_full['messages']
 
@@ -222,22 +222,22 @@ def __read_single_message_json(path: str) -> pd.DataFrame:
         relevant_msg_data = relevant_msg_data[:-skipped_count]
 
     df = pd.DataFrame(relevant_msg_data)
-    df['conversation_name'] = conversation_name
+    df['chat_name'] = chat_name
     df['participants_count'] = len(participants)
     return df
 
 
-def __read_all_messages_from_conversation(path: str) -> pd.DataFrame:
+def __read_all_messages_from_chat(path: str) -> pd.DataFrame:
     """
-    Reads all message_X.json files from a conversation and stores selected
+    Reads all message_X.json files from a chat and stores selected
     message data in a data frame.
 
     Args:
-        path: path to a folder with the conversation data
+        path: path to a folder with the chat data
     
     Returns:
         A data frame containing the message history as well as the
-        conversation title and the number of participants
+        chat name and the number of participants
     """
     # get names of all message_X.json files
     message_json_files = [filename for filename in os.listdir(path)
@@ -273,7 +273,7 @@ def __read_extracted_data(path: str) -> pd.DataFrame:
         if not os.path.isdir(conversation_folder_path):
             # skip README.txt file
             continue
-        chat_df = __read_all_messages_from_conversation(
+        chat_df = __read_all_messages_from_chat(
             conversation_folder_path
         )
         messenger_data.append(chat_df)
@@ -332,25 +332,25 @@ def infer_data_owner(full_data: pd.DataFrame) -> str:
     # step 1: filter data to chats with 2 participants
     chats_senders = full_data \
         [full_data['participants_count'] == 2] \
-        [['conversation_name', 'sender_name']] \
+        [['chat_name', 'sender_name']] \
         .drop_duplicates()
     # step 2: find the number of people who sent at least 1 message for each chat
     chats_sender_counts = chats_senders \
-        .groupby('conversation_name') \
+        .groupby('chat_name') \
         .count() \
         .reset_index() \
-        .rename(columns={'sender_name': 'conversation_sender_count'})
+        .rename(columns={'sender_name': 'chat_sender_count'})
     # step 3: merge both data frames to enable filtering
     chats_senders = chats_senders \
-        .merge(chats_sender_counts, on='conversation_name')
+        .merge(chats_sender_counts, on='chat_name')
     # step 4: filter out chats with less than 2 senders,
     # count how many times in general each sender appears.
     senders_counts = chats_senders \
-        [chats_senders['conversation_sender_count'] == 2] \
+        [chats_senders['chat_sender_count'] == 2] \
         .groupby('sender_name') \
         .count() \
         .reset_index() \
-        .rename(columns={'conversation_name': 'count'})
+        .rename(columns={'chat_name': 'count'})
     # step 5: argmax = data owner
     owner_name = senders_counts \
         .iloc[senders_counts['count'].idxmax()] \

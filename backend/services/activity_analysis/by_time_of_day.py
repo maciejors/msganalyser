@@ -9,6 +9,6 @@ def msg_by_time_of_day(df: pd.DataFrame) -> pd.DataFrame:
         .groupby('hour') \
         .count() \
         .reset_index() \
-        .rename(columns={'hour': 'keys', 'sender_name': 'values'}) \
-        .sort_values('keys')
+        .rename(columns={'hour': 'key', 'sender_name': 'value'}) \
+        .sort_values('key')
     return result

@@ -9,6 +9,6 @@ def msg_by_year(df: pd.DataFrame) -> pd.DataFrame:
         .groupby('year') \
         .count() \
         .reset_index() \
-        .rename(columns={'year': 'keys', 'sender_name': 'values'}) \
-        .sort_values('keys')
+        .rename(columns={'year': 'key', 'sender_name': 'value'}) \
+        .sort_values('key')
     return result

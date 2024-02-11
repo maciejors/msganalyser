@@ -13,13 +13,13 @@ def msg_by_month(df: pd.DataFrame) -> pd.DataFrame:
     pretty_month_series = df['timestamp_ms'] \
         .map(get_sortable_month_str_from_timestamp) \
         .map(get_pretty_month_str_from_sortable)
-    result = df.assign(keys=pretty_month_series) \
-        .groupby(['year', 'month', 'keys']) \
+    result = df.assign(key=pretty_month_series) \
+        .groupby(['year', 'month', 'key']) \
         .count() \
         .reset_index() \
         .sort_values(['year', 'month']) \
-        [['keys', 'sender_name']] \
-        .rename(columns={'sender_name': 'values'})
+        [['key', 'sender_name']] \
+        .rename(columns={'sender_name': 'value'})
     return result
 
 
@@ -32,9 +32,9 @@ def avg_msg_by_calendar_month(df: pd.DataFrame) -> pd.DataFrame:
         .groupby('month') \
         .mean() \
         .reset_index()
-    avg_by_month['values'] = avg_by_month['sender_name'] \
+    avg_by_month['value'] = avg_by_month['sender_name'] \
         .round(0) \
         .astype(int)
-    result = avg_by_month[['month', 'values']] \
-        .rename(columns={'month': 'keys'})
+    result = avg_by_month[['month', 'value']] \
+        .rename(columns={'month': 'key'})
     return result
