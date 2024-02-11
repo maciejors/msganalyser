@@ -9,7 +9,7 @@ from backend.dependencies.filters import Filters
 T = TypeVar('T', bound=BaseModel)
 
 
-def standard_functionality_wrapper(
+def functionality_wrapper(
         func: Callable[[pd.DataFrame], pd.DataFrame],
         df: pd.DataFrame,
         filters: Filters,

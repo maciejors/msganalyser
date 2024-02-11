@@ -2,7 +2,7 @@ from fastapi import APIRouter, Request
 
 from backend.dependencies.errors import DataNotReadException
 from backend.dependencies.filters import StandardFiltersAnnotated
-from backend.dependencies.wrappers import standard_functionality_wrapper
+from backend.dependencies.wrappers import functionality_wrapper
 from backend.models.common import BaseAppErrorModel
 from backend.models.analysis import DatetimeStat1D
 
@@ -27,7 +27,7 @@ async def get_msg_by_year(request: Request, filters: StandardFiltersAnnotated) -
         df = request.app.state.data_df
     except AttributeError:
         raise DataNotReadException()
-    response = standard_functionality_wrapper(msg_by_year, df, filters, DatetimeStat1D)
+    response = functionality_wrapper(msg_by_year, df, filters, DatetimeStat1D)
     return response
 
 
@@ -37,7 +37,7 @@ async def get_msg_by_month(request: Request, filters: StandardFiltersAnnotated) 
         df = request.app.state.data_df
     except AttributeError:
         raise DataNotReadException()
-    response = standard_functionality_wrapper(msg_by_month, df, filters, DatetimeStat1D)
+    response = functionality_wrapper(msg_by_month, df, filters, DatetimeStat1D)
     return response
 
 
@@ -48,7 +48,7 @@ async def get_avg_msg_by_calendar_month(request: Request,
         df = request.app.state.data_df
     except AttributeError:
         raise DataNotReadException()
-    response = standard_functionality_wrapper(avg_msg_by_calendar_month, df, filters, DatetimeStat1D)
+    response = functionality_wrapper(avg_msg_by_calendar_month, df, filters, DatetimeStat1D)
     return response
 
 
@@ -58,7 +58,7 @@ async def get_msg_by_day(request: Request, filters: StandardFiltersAnnotated) ->
         df = request.app.state.data_df
     except AttributeError:
         raise DataNotReadException()
-    response = standard_functionality_wrapper(msg_by_day, df, filters, DatetimeStat1D)
+    response = functionality_wrapper(msg_by_day, df, filters, DatetimeStat1D)
     return response
 
 
@@ -68,5 +68,5 @@ async def get_msg_by_time_of_day(request: Request, filters: StandardFiltersAnnot
         df = request.app.state.data_df
     except AttributeError:
         raise DataNotReadException()
-    response = standard_functionality_wrapper(msg_by_time_of_day, df, filters, DatetimeStat1D)
+    response = functionality_wrapper(msg_by_time_of_day, df, filters, DatetimeStat1D)
     return response
