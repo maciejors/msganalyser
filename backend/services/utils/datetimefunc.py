@@ -11,10 +11,10 @@ def get_sortable_day_str_from_timestamp(timestamp_ms: int) -> str:
 
 def get_pretty_day_str_from_sortable(sortable_day_str: str) -> str:
     """
-    e.g. "2021/12/01" -> "01/12" (1st December)
+    e.g. "2021/12/01" -> "01/12/2021" (1st December 2021)
     """
-    mm, dd = sortable_day_str[5:].split('/')
-    return f'{dd}/{mm}'
+    yyyy, mm, dd = sortable_day_str.split('/')
+    return f'{dd}/{mm}/{yyyy}'
 
 
 def get_sortable_month_str_from_timestamp(timestamp_ms: int) -> str:
