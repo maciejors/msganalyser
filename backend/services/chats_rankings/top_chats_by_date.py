@@ -38,9 +38,8 @@ def top_chats_by_month(df: pd.DataFrame) -> pd.DataFrame:
         .rename(columns={'sender_name': 'value'})
     result = monthly_counts_chats \
         .loc[monthly_counts_chats.groupby(['key'])['value'].idxmax()] \
-        .sort_values(['year', 'month']) \
-        [['key', 'chat_name', 'value']]
-    return result
+        .sort_values(['year', 'month'])
+    return result[['key', 'chat_name', 'value']]
 
 
 def top_chats_by_day(df: pd.DataFrame) -> pd.DataFrame:
@@ -57,6 +56,18 @@ def top_chats_by_day(df: pd.DataFrame) -> pd.DataFrame:
         .rename(columns={'sender_name': 'value'})
     result = daily_counts_chats \
         .loc[daily_counts_chats.groupby(['key'])['value'].idxmax()] \
-        .sort_values(['year', 'month', 'day']) \
-        [['key', 'chat_name', 'value']]
-    return result
+        .sort_values(['year', 'month', 'day'])
+    return result[['key', 'chat_name', 'value']]
+
+
+def chat_of_the_day_counts(df: pd.DataFrame) -> pd.DataFrame:
+    """
+    How many times each chat was the chat of the day, i.e. had the most
+    messages of all chats on a day.
+    """
+    result = top_chats_by_day(df) \
+        .groupby('chat_name') \
+        .count() \
+        .reset_index() \
+        .sort_values('value', ascending=False)
+    return result[['chat_name', 'value']]

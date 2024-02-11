@@ -31,22 +31,3 @@ def get_pretty_month_str_from_sortable(sortable_day_str: str) -> str:
     """
     yyyy, mm = sortable_day_str.split('/')
     return f'{mm}/{yyyy}'
-
-
-def get_readable_time(seconds: int) -> str:
-    """
-    Turns something like this: 3731 (seconds)
-
-    Into this: "1h 2m 11s"
-    """
-    hrs = seconds // 3600
-    mins = (seconds % 3600) // 60
-    secs = seconds % 60
-
-    result = ''
-    if hrs != 0:
-        result += f'{hrs}h '
-    if mins != 0:
-        result += f'{mins}m '
-    result += f'{secs}s'
-    return result
