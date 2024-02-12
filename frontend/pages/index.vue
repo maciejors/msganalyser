@@ -4,7 +4,7 @@
 		<form @submit.prevent="onConfirm">
 			<h3>Setup</h3>
 			<section>
-				<h4>Path to the data:</h4>
+				<h4>Path to the folder with Facebook data:</h4>
 				<input type="text" v-model="pathToData" />
 			</section>
 			<section>
@@ -22,11 +22,16 @@
 					<p class="text-gray-500 ml-6">{{ anonOpt.description }}</p>
 				</div>
 			</section>
-			<div class="flex flex-row justify-center">
+			<div class="flex flex-col items-center gap-1">
 				<button class="btn font-bold h-16 w-36" :disabled="isDataLoading">
 					<Spinner v-if="isDataLoading" size="32px" width="4px" />
 					<span v-else>Load your data</span>
 				</button>
+				<p class="text-red-400">
+					<span :class="{ 'text-transparent': !isLoadingDataFailed }">
+						Facebook data not found at the specified location
+					</span>
+				</p>
 			</div>
 		</form>
 	</main>
@@ -46,6 +51,7 @@ export default {
 		return {
 			isDataLoading: false,
 			isDataLoaded: false,
+			isLoadingDataFailed: false,
 			pathToData: './data',
 			selectedAnonOptions: ['purgemsg'] as string[],
 			anonOptionsDetails: [
@@ -55,7 +61,7 @@ export default {
 					description:
 						'Replaces all messages contents with a blank text. ' +
 						'This will reduce the size of the data once it is extracted. ' +
-						'Messages contents are not used anywhere in the app, so it is ' +
+						'Messages contents are not used anywhere in this app, so it is ' +
 						'recommended to select this option.',
 				},
 				{
@@ -74,7 +80,14 @@ export default {
 	methods: {
 		async onConfirm() {
 			this.isDataLoading = true;
-			this.isDataLoaded = await loadData(this.pathToData);
+			const isSuccess = await loadData(this.pathToData);
+			console.log('hello');
+			if (isSuccess) {
+				this.isLoadingDataFailed = false;
+				this.isDataLoaded = true;
+			} else {
+				this.isLoadingDataFailed = true;
+			}
 			this.isDataLoading = false;
 		},
 	},
@@ -87,7 +100,7 @@ export default {
 }
 
 form {
-	@apply border border-gray-400 rounded-xl p-4 mt-4 max-w-4xl;
+	@apply border border-gray-400 rounded-xl px-4 pt-4 pb-2 mt-4 max-w-4xl;
 	@apply flex flex-col gap-6;
 }
 
