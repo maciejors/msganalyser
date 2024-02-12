@@ -8,7 +8,7 @@
 		</div>
 	</nav>
 	<main class="grid grid-cols-12 gap-2">
-		<MenuList class="col-start-2 col-span-2" />
+		<Menu class="col-start-2 col-span-2" />
 		<div class="col-span-8">
 			<slot />
 		</div>
