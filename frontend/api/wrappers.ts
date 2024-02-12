@@ -15,3 +15,15 @@ export async function loadData(dataPath: string): Promise<boolean> {
 	}
 	return true;
 }
+
+/**
+ * @returns Whether or not the data is loaded.
+ */
+export async function getIsDataLoaded(): Promise<boolean> {
+	try {
+		await axios.get('/setup');
+	} catch (_) {
+		return false;
+	}
+	return true;
+}

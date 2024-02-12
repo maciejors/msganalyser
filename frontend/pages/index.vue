@@ -34,11 +34,22 @@
 				</p>
 			</div>
 		</form>
+		<div v-if="isDataLoaded" class="flex flex-col items-center gap-1">
+			<h4>
+				Your data is now loaded!
+				<NuxtLink
+					to="/dashboard"
+					class="text-primary font-bold border-b hover:border-b-2 border-primary"
+				>
+					Click here to go to the analysis dashboard
+				</NuxtLink>
+			</h4>
+		</div>
 	</main>
 </template>
 
 <script lang="ts">
-import { loadData } from '../api/wrappers';
+import { loadData, getIsDataLoaded } from '../api/wrappers';
 
 interface AnonymisationOptionDetails {
 	value: string;
@@ -47,6 +58,10 @@ interface AnonymisationOptionDetails {
 }
 
 export default {
+	mounted() {
+		getIsDataLoaded().then((v) => (this.isDataLoaded = v));
+	},
+
 	data() {
 		return {
 			isDataLoading: false,
