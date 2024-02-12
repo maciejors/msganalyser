@@ -1,4 +1,4 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, Request
 from fastapi.responses import JSONResponse
 from fastapi.middleware.cors import CORSMiddleware
 
@@ -24,7 +24,7 @@ app.include_router(chats.router)
 
 
 @app.exception_handler(DataNotReadException)
-async def data_not_read_exception_handler():
+async def data_not_read_exception_handler(request: Request, exc: DataNotReadException):
     return JSONResponse(
         status_code=404,
         content={'message': 'Data is yet to be read'}
