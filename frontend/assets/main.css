@@ -9,7 +9,7 @@ body {
 
 /* App title (in the navbar) */
 h1 {
-  @apply text-5xl text-primary;
+  @apply text-5xl text-gray-50;
 }
 
 /* Main content title */

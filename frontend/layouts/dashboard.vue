@@ -3,7 +3,7 @@
 		<div class="col-start-2 col-span-10 flex flex-row justify-between items-center py-4">
 			<h1>msganalyser</h1>
 			<p>
-				<NuxtLink to="/" class="btn">Go back to the setup page</NuxtLink>
+				<NuxtLink to="/" class="link-btn text-lg">Go back to the setup page</NuxtLink>
 			</p>
 		</div>
 	</nav>

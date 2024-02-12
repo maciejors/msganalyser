@@ -108,7 +108,7 @@ export default {
 
 <style scoped>
 .app-name {
-	@apply text-primary font-normal;
+	@apply font-normal;
 }
 
 form {
