@@ -1,3 +1,55 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+body {
+  @apply bg-black text-gray-400;
+}
+
+/* App title (in the navbar) */
+h1 {
+  @apply text-5xl text-primary;
+}
+
+/* Main content title */
+h2 {
+  @apply text-6xl text-gray-50 font-extralight;
+}
+
+h3 {
+  @apply text-4xl text-gray-50 font-extralight;
+}
+
+h4 {
+  @apply text-xl text-gray-50;
+}
+
+h5 {
+  @apply text-gray-50 font-bold;
+}
+
+.btn {
+  @apply inline-block p-2 rounded bg-primary hover:bg-primaryLight disabled:bg-primaryLight;
+  @apply text-gray-50 flex flex-row justify-center items-center;
+}
+
+/**
+ * FORM STYLES
+ */
+
+input,
+label {
+	@apply text-gray-300;
+}
+
+input[type='text'] {
+	@apply w-full bg-inherit border-b-2 border-gray-600;
+	@apply focus:outline-none focus:border-primary;
+}
+
+input[type='checkbox'] {
+  appearance: none;
+  @apply w-4 h-4 border-2 rounded-sm cursor-pointer ;
+  @apply checked:bg-primary;
+}
