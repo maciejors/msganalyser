@@ -37,10 +37,7 @@
 		<div v-if="isDataLoaded" class="flex flex-col items-center gap-1">
 			<h4>
 				Your data is now loaded!
-				<NuxtLink
-					to="/dashboard"
-					class="text-primary font-bold border-b hover:border-b-2 border-primary"
-				>
+				<NuxtLink to="/dashboard" class="link-btn">
 					Click here to go to the analysis dashboard
 				</NuxtLink>
 			</h4>
