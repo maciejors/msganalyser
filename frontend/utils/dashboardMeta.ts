@@ -1,3 +1,9 @@
+import resolveConfig from 'tailwindcss/resolveConfig';
+import tailwindConfig from '../tailwind.config.js';
+
+const twFullConfig = resolveConfig(tailwindConfig);
+export const defaultChartColour: string = twFullConfig.theme.colors['primary'];
+
 export interface DashboardElement {
 	routeRelative: string;
 	name: string;

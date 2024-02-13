@@ -48,10 +48,6 @@
 <script lang="ts">
 import { loadData, getIsDataLoaded } from '../utils/apiWrappers';
 
-definePageMeta({
-	layout: 'default',
-});
-
 interface AnonymisationOptionDetails {
 	value: string;
 	title: string;

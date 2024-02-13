@@ -9,7 +9,7 @@
 
 <script setup lang="ts">
 import { Bar } from 'vue-chartjs';
-import { dashboardElementsData } from '../../../utils/dashboardMeta';
+import { dashboardElementsData, defaultChartColour } from '../../../utils/dashboardMeta';
 import { getMsgByYear } from '../../../utils/apiWrappers';
 
 definePageMeta({
@@ -25,6 +25,7 @@ const chartData = {
 		{
 			data: data.value,
 			label: 'Messages count',
+			backgroundColor: defaultChartColour,
 		},
 	],
 };
