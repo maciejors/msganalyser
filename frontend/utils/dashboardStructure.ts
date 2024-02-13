@@ -1,10 +1,10 @@
-interface DashboardElement {
+export interface DashboardElement {
 	routeRelative: string;
 	name: string;
 	group: string;
 }
 
-interface dashboardGroup {
+export interface DashboardGroup {
 	routeRelative: string;
 	name: string;
 	elementIds: string[];
