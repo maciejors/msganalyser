@@ -7,7 +7,7 @@
 			</p>
 		</div>
 	</nav>
-	<main class="grid grid-cols-12 gap-2">
+	<main class="grid grid-cols-12 gap-2 mb-16">
 		<Menu class="col-start-2 col-span-2" />
 		<div class="col-span-8">
 			<slot />

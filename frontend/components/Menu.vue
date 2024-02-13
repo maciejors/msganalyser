@@ -1,7 +1,7 @@
 <template>
 	<aside class="flex flex-col gap-6 w-full">
 		<section v-for="itemGroup in menuItemGroups" class="w-full">
-			<h5>{{ itemGroup.name }}</h5>
+			<h6>{{ itemGroup.name }}</h6>
 			<div class="mt-2 border-l border-gray-800">
 				<div v-for="itemId in itemGroup.elementIds">
 					<MenuItem
@@ -19,7 +19,7 @@ import {
 	dashboardGroupsOrder,
 	dashboardGroupsData,
 	dashboardElementsData,
-} from '../utils/dashboardStructure';
+} from '../utils/dashboardMeta';
 
 const menuItemGroups = dashboardGroupsOrder.map((id) => dashboardGroupsData.get(id)!);
 </script>

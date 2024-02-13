@@ -72,7 +72,7 @@ export const dashboardElementsData = new Map<string, DashboardElement>([
 	],
 ]);
 
-export const dashboardGroupsData = new Map<string, dashboardGroup>([
+export const dashboardGroupsData = new Map<string, DashboardGroup>([
 	[
 		'overview',
 		{
