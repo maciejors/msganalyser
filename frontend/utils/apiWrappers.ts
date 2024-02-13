@@ -46,7 +46,31 @@ export async function getIsDataLoaded(): Promise<boolean> {
 	return true;
 }
 
+// ======== //
+// ACTIVITY //
+// ======== //
+
 export async function getMsgByYear(): Promise<DatetimeActivityStat> {
 	const response = await axios.get('/activity/msg_by_year');
+	return response.data;
+}
+
+export async function getMsgByMonth(): Promise<DatetimeActivityStat> {
+	const response = await axios.get('/activity/msg_by_month');
+	return response.data;
+}
+
+export async function getAvgMsgByCalendarMonth(): Promise<DatetimeActivityStat> {
+	const response = await axios.get('/activity/avg_msg_by_calendar_month');
+	return response.data;
+}
+
+export async function getMsgByDay(): Promise<DatetimeActivityStat> {
+	const response = await axios.get('/activity/msg_by_day');
+	return response.data;
+}
+
+export async function getMsgByTimeOfDay(): Promise<DatetimeActivityStat> {
+	const response = await axios.get('/activity/msg_by_time_of_day');
 	return response.data;
 }
