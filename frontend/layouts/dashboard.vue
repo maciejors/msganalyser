@@ -15,6 +15,14 @@
 	</main>
 </template>
 
+<script setup lang="ts">
+import { getIsDataLoaded } from '../utils/apiWrappers';
+
+if (!(await getIsDataLoaded())) {
+	await navigateTo('/');
+}
+</script>
+
 <style scoped>
 nav {
 	@apply grid grid-cols-12 gap-2;

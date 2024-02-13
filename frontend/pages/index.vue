@@ -46,7 +46,7 @@
 </template>
 
 <script lang="ts">
-import { loadData, getIsDataLoaded } from '../api/wrappers';
+import { loadData, getIsDataLoaded } from '../utils/apiWrappers';
 
 interface AnonymisationOptionDetails {
 	value: string;
