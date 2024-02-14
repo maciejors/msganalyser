@@ -1,9 +1,12 @@
 import json
 import random
 import itertools
+import logging
 
 import pandas as pd
 
+
+_logger = logging.getLogger('services.reading_data')
 
 PATH_TO_SUBSTITUTE_NAMES = './backend/static/substitute_names.json'
 
@@ -67,7 +70,11 @@ def anonymise_data(full_data: pd.DataFrame, purge_contents: bool, replace_names:
         All operations are done in-place, i.e. affecting the original data frame
     """
     if purge_contents:
+        _logger.info('Purging messages contents...')
         full_data = __purge_contents(full_data)
+        _logger.info('Done')
     if replace_names:
+        _logger.info('Anonymising sender and chat names...')
         full_data = __replace_names(full_data)
+        _logger.info('Done')
     return full_data
