@@ -24,10 +24,16 @@ interface ChatStreakStat extends ChatStat {
 /**
  * @returns Whether or not the data has been loaded successfully.
  */
-export async function loadData(dataPath: string): Promise<boolean> {
+export async function loadData(
+	dataPath: string,
+	purgeContents: boolean,
+	replaceNames: boolean
+): Promise<boolean> {
 	try {
 		await axios.put('/setup', {
 			data_path: dataPath,
+			purge_contents: purgeContents,
+			replace_names: replaceNames,
 		});
 	} catch (_) {
 		return false;

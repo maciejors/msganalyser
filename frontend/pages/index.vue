@@ -92,7 +92,9 @@ export default {
 	methods: {
 		async onConfirm() {
 			this.isDataLoading = true;
-			const isSuccess = await loadData(this.pathToData);
+			const purgeContents = this.selectedAnonOptions.includes('purgemsg');
+			const replaceNames = this.selectedAnonOptions.includes('chatnames');
+			const isSuccess = await loadData(this.pathToData, purgeContents, replaceNames);
 			console.log('hello');
 			if (isSuccess) {
 				this.isLoadingDataFailed = false;
