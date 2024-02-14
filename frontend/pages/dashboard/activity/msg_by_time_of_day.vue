@@ -15,13 +15,16 @@
 import { Bar } from 'vue-chartjs';
 import { dashboardElementsData, defaultChartColour } from '../../../utils/dashboardMeta';
 import { getMsgByTimeOfDay } from '../../../utils/apiWrappers';
+import { useFiltersStore } from '../../../stores/filters';
 
 definePageMeta({
 	layout: 'dashboard',
 });
 
+const filtersStore = useFiltersStore();
+
 const meta = dashboardElementsData.get('msg_by_time_of_day')!;
-const data = await getMsgByTimeOfDay();
+const data = await getMsgByTimeOfDay(filtersStore.getFilters);
 
 const chartData = {
 	labels: data.key,

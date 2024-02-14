@@ -43,12 +43,12 @@ h6 {
 }
 
 .btn {
-  @apply inline-block p-2 rounded bg-primary hover:bg-primaryLight disabled:bg-primaryLight;
+  @apply inline-block p-2 rounded bg-primary hover:bg-primaryLight disabled:bg-primaryLight cursor-pointer;
   @apply text-gray-50 flex flex-row justify-center items-center;
 }
 
 .link-btn {
-  @apply text-primary font-bold border-b hover:border-b-2 border-primary;
+  @apply text-primary border-b hover:border-b-2 border-primary cursor-pointer;
 }
 
 /**
@@ -69,4 +69,21 @@ input[type='checkbox'] {
   appearance: none;
   @apply w-4 h-4 border-2 rounded-sm cursor-pointer ;
   @apply checked:bg-primary;
+}
+
+input[type='radio'] {
+  appearance: none;
+  @apply w-4 h-4 border-2 rounded-full cursor-pointer ;
+  @apply checked:bg-primary;
+}
+
+input[type='date'] {
+	@apply bg-transparent border-b-2 border-gray-600;
+	@apply focus:outline-none focus:border-primary;
+}
+
+::-webkit-datetime-edit-year-field,
+::-webkit-datetime-edit-month-field,
+::-webkit-datetime-edit-day-field {
+	@apply focus:bg-primary;
 }

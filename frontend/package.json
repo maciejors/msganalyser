@@ -10,6 +10,7 @@
 		"postinstall": "nuxt prepare"
 	},
 	"devDependencies": {
+		"@pinia-plugin-persistedstate/nuxt": "^1.2.0",
 		"autoprefixer": "^10.4.17",
 		"nuxt": "^3.9.3",
 		"postcss": "^8.4.35",
@@ -22,6 +23,7 @@
 		"axios": "^1.6.7",
 		"chart.js": "^4.4.1",
 		"pinia": "^2.1.7",
-		"vue-chartjs": "^5.3.0"
+		"vue-chartjs": "^5.3.0",
+		"vue-material-design-icons": "^5.3.0"
 	}
 }
