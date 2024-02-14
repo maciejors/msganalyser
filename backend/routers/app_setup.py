@@ -6,6 +6,7 @@ from backend.models.common import BaseAppErrorModel
 from backend.services.reading_data.read import (
     read_messenger_data, infer_data_owner,
 )
+from backend.services.reading_data.anonymiser import anonymise_data
 from backend.dependencies.errors import DataNotReadException
 
 router = APIRouter(
@@ -24,7 +25,12 @@ router = APIRouter(
 )
 async def setup(request: Request, config: ConfigurationModel):
     try:
-        full_data_df = read_messenger_data(config.data_path, purge_contents=True)
+        full_data_df = read_messenger_data(config.data_path)
+        full_data_df = anonymise_data(
+            full_data_df,
+            purge_contents=config.purge_contents,
+            replace_names=config.replace_names,
+        )
     except FileNotFoundError:
         return JSONResponse(
             status_code=404,

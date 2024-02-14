@@ -299,7 +299,7 @@ def __read_extracted_data(path: str) -> pd.DataFrame:
     return full_data
 
 
-def read_messenger_data(data_path: str, purge_contents=True):
+def read_messenger_data(data_path: str):
     """
     Reads the entire messenger inbox data and stores it in a data frame.
     Every data frame contains message_data with the message history,
@@ -307,16 +307,12 @@ def read_messenger_data(data_path: str, purge_contents=True):
 
     Args:
         data_path: Path to the folder with zipped facebook data
-        purge_contents: Whether or not to wipe messages contents 
-            (reduces in-memory size)
     
     Returns:
         A data frame with the full messenger data
     """
     extracted_path = __extract_merged_inbox(data_path)
     full_data = __read_extracted_data(extracted_path)
-    if purge_contents:
-        full_data['content'] = ''
     return full_data
 
 
