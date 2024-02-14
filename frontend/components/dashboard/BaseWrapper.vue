@@ -10,8 +10,8 @@
 </template>
 
 <script setup lang="ts">
-import type { DashboardElement } from '../utils/dashboardMeta';
-import { dashboardGroupsData } from '../utils/dashboardMeta';
+import type { DashboardElement } from '../../utils/dashboardMeta';
+import { dashboardGroupsData } from '../../utils/dashboardMeta';
 
 const props = defineProps({
 	dashboardElement: {
