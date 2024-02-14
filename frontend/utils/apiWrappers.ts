@@ -76,3 +76,11 @@ export const getMsgByDay = apiWrapperFactory<DatetimeActivityStat>('/activity/ms
 export const getMsgByTimeOfDay = apiWrapperFactory<DatetimeActivityStat>(
 	'/activity/msg_by_time_of_day'
 );
+
+export const getTopMsgCount = apiWrapperFactory<ChatStat>('/chats/top_msg_count');
+export const getTopMediaCount = apiWrapperFactory<ChatStat>('/chats/top_media_count');
+export const getTopCallsCount = apiWrapperFactory<ChatStat>('/chats/top_calls_count');
+export const getTopCallsDuration = apiWrapperFactory<ChatStat>('/chats/top_calls_duration');
+export const getChatOfTheDayCounts = apiWrapperFactory<ChatStat>('/chats/chat_of_the_day_counts');
+export const getDaysWithMsgCounts = apiWrapperFactory<ChatStat>('/chats/days_with_msg_count');
+export const getLongestStreaks = apiWrapperFactory<ChatStreakStat>('/chats/longest_streaks');
