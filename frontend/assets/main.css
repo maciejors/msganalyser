@@ -1,0 +1,89 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+:root {
+  color-scheme: dark;
+}
+
+html {
+  /* scroll margin */
+	/* margin-right: calc(-1 * (100vw - 100%)); */
+}
+
+body {
+  @apply bg-black text-gray-400;
+}
+
+/* App title (in the navbar) */
+h1 {
+  @apply text-5xl text-gray-50;
+}
+
+/* Main content title */
+h2 {
+  @apply text-6xl text-gray-50 font-extralight;
+}
+
+h3 {
+  @apply text-4xl text-gray-50 font-extralight;
+}
+
+h4 {
+  @apply text-xl text-gray-50;
+}
+
+h5 {
+  @apply text-primary font-bold;
+}
+
+h6 {
+  @apply text-gray-50 font-bold;
+}
+
+.btn {
+  @apply inline-block p-2 rounded bg-primary hover:bg-primaryLight disabled:bg-primaryLight enabled:cursor-pointer;
+  @apply text-gray-50 flex flex-row justify-center items-center;
+}
+
+.link-btn {
+  @apply text-primary border-b hover:border-b-2 border-primary cursor-pointer;
+}
+
+/**
+ * FORM STYLES
+ */
+
+input,
+label {
+	@apply text-gray-300;
+}
+
+input[type='text'] {
+	@apply w-full bg-inherit border-b-2 border-gray-600;
+	@apply focus:outline-none focus:border-primary;
+}
+
+input[type='checkbox'] {
+  appearance: none;
+  @apply w-4 h-4 border-2 rounded-sm cursor-pointer ;
+  @apply checked:bg-primary;
+}
+
+input[type='radio'] {
+  appearance: none;
+  @apply w-4 h-4 border-2 rounded-full cursor-pointer ;
+  @apply checked:bg-primary;
+}
+
+input[type='date'] {
+	@apply bg-transparent border-b-2 border-gray-600;
+	@apply focus:outline-none focus:border-primary;
+}
+
+::-webkit-datetime-edit-year-field,
+::-webkit-datetime-edit-month-field,
+::-webkit-datetime-edit-day-field {
+	@apply focus:bg-primary;
+}
