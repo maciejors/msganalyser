@@ -2,30 +2,32 @@
 	<NoDataIndicator v-if="items.length === 0" />
 	<div v-else>
 		<ol class="flex flex-col gap-4 w-full">
-			<div class="ranking-tile-layout">
-				<p class="col-span-1">{{ keysLabel }}</p>
-				<p class="col-span-4">Chat name</p>
-				<p class="col-span-7">{{ valuesLabel }}</p>
+			<div class="ranking-tile-layout text-gray-300 font-bold">
+				<p class="key-col">{{ keysLabel }}</p>
+				<p class="chat-name-col">Chat name</p>
+				<p class="value-col">{{ valuesLabel }}</p>
 			</div>
 			<li v-for="item in items" class="ranking-tile">
-				<p class="col-span-1">{{ item.key }}</p>
-				<p class="col-span-4">{{ item.chatName }}</p>
-				<p class="col-span-1">{{ item.valueDisplayed }}</p>
-				<div
-					class="col-span-6 bar"
-					:style="`width: ${(item.valueNumeric / maxValue) * 100}%;`"
-				></div>
+				<p class="key-col">{{ item.key }}</p>
+				<p class="chat-name-col">{{ item.chatName }}</p>
+				<div class="value-col grid grid-cols-6 h-full items-center">
+					<p class="col-span-1">{{ item.valueDisplayed }}</p>
+					<div
+						class="col-span-5 bar"
+						:style="`width: ${(item.valueNumeric / maxValue) * 100}%;`"
+					></div>
+				</div>
 			</li>
+			<div class="flex flex-row justify-center">
+				<button
+					@click="showMoreItems"
+					class="btn w-52 h-12"
+					v-show="displayedItemsCount < keys.length"
+				>
+					Show more
+				</button>
+			</div>
 		</ol>
-		<div class="flex flex-row justify-center">
-			<button
-				@click="showMoreItems"
-				class="btn w-52 h-12"
-				v-show="displayedItemsCount < keys.length"
-			>
-				Show more
-			</button>
-		</div>
 	</div>
 </template>
 
@@ -77,7 +79,9 @@ const items = computed(() => {
 			key,
 			chatName: props.chatNames[i],
 			valueNumeric: props.valuesNumeric[i],
-			valueDisplayed: props.valuesDisplayed ? props.valuesDisplayed[i] : props.valuesNumeric[i],
+			valueDisplayed: props.valuesDisplayed
+				? props.valuesDisplayed[i]
+				: props.valuesNumeric[i].toString(),
 		}))
 		.slice(0, displayedItemsCount.value);
 });
@@ -87,7 +91,19 @@ const maxValue = Math.max(...props.valuesNumeric);
 
 <style scoped>
 .ranking-tile-layout {
-	@apply grid grid-cols-12 gap-2 px-4 items-center;
+	@apply grid grid-cols-10 gap-2 px-4 items-center;
+}
+
+.key-col {
+	@apply col-span-2 xl:col-span-1;
+}
+
+.chat-name-col {
+	@apply col-span-3;
+}
+
+.value-col {
+	@apply col-span-5 xl:col-span-6;
 }
 
 .ranking-tile {
