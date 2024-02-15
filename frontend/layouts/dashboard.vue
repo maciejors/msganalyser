@@ -1,7 +1,7 @@
 <template>
 	<div class="max-h-full">
 		<nav
-			class="sticky top-0 w-full z-40 px-40 border-b border-gray-900 bg-black bg-opacity-25 backdrop-blur"
+			class="sticky top-0 w-full z-40 responsive-side-padding border-b border-gray-900 bg-black bg-opacity-25 backdrop-blur"
 		>
 			<div class="col-start-2 col-span-10 flex flex-row justify-between items-center py-4">
 				<h1>msganalyser</h1>
@@ -18,9 +18,9 @@
 			:class="{ 'translate-x-96': !areFiltersVisible }"
 			class="transition-transform ease-out"
 		/>
-		<main class="px-40 mb-16">
-			<Menu class="fixed max-w-64 overflow-y-auto py-4 pr-2" />
-			<div class="pl-72 pt-4">
+		<main class="responsive-side-padding mb-16">
+			<Menu class="fixed max-w-40 lg:max-w-64 overflow-y-auto py-4 pr-2" />
+			<div class="pl-44 lg:pl-72 pt-4">
 				<slot />
 			</div>
 		</main>
@@ -45,5 +45,9 @@ function hideFilters() {
 <style scoped>
 main aside {
 	max-height: calc(100% - 5em);
+}
+
+.responsive-side-padding {
+	@apply px-8 md:px-16 lg:px-24 xl:px-32;
 }
 </style>
