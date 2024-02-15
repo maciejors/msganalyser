@@ -30,10 +30,6 @@ const props = defineProps({
 		type: String,
 		required: true,
 	},
-	keysLabel: {
-		type: String,
-		required: true,
-	},
 	valuesLabel: {
 		type: String,
 		required: true,
