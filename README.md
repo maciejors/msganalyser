@@ -26,6 +26,20 @@ Open the terminal at the root location of the projects and run the scripts from 
 
 ### 4. Visit `http://localhost:3000/` in your browser
 
+### 5. Place all your Facebook zipped data in the `data` folder.
+
+Only messages data is needed.
+
+### 6. On the setup page:
+
+- Leave the "Path to the folder with Facebook data" field with the default value (unless you placed your data elsewhere than specified in the previous step);
+- Customise other options to your liking;
+- Press "Load your data" and wait. This could take a few minutes, depending on the size of the data.
+
+### 7. Once the data is loaded, a link to the dashboard will pop up below the setup form.
+
+There you will further instructions and various analysis of your data. Enjoy browsing!
+
 # Technical details
 
 Frameworks used:
