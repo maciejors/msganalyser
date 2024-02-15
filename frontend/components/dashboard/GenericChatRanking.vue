@@ -3,7 +3,7 @@
 		<template v-slot:description>
 			<p>{{ props.rankingDescription }}</p>
 		</template>
-		<RankingTable
+		<TableChatRanking
 			:keys="data.chat_name"
 			:valuesNumericSorted="data.value"
 			:valuesDisplayed="valuesDisplayed"

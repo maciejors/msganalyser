@@ -1,7 +1,7 @@
 <template>
 	<ol class="flex flex-col gap-4 w-full">
 		<div class="ranking-tile-layout">
-			<p class="col-span-1">No.</p>
+			<p class="col-span-1">{{ keysLabel }}</p>
 			<p class="col-span-4">Chat name</p>
 			<p class="col-span-7">{{ valuesLabel }}</p>
 		</div>
@@ -21,6 +21,10 @@
 import { computed } from 'vue';
 
 const props = defineProps({
+	keysLabel: {
+		type: String,
+		required: true,
+	},
 	keys: {
 		type: Array<String>,
 		required: true,

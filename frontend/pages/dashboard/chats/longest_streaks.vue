@@ -7,7 +7,7 @@
 				streak count is used.
 			</p>
 		</template>
-		<RankingTable
+		<TableChatRanking
 			:keys="data.chat_name"
 			:valuesNumericSorted="data.value"
 			:valuesDisplayed="valuesDisplayed"
