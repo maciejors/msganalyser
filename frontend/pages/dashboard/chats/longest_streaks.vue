@@ -14,6 +14,7 @@
 			:values-numeric="data.value"
 			:values-displayed="valuesDisplayed"
 			values-label="The longest streak length (count)"
+			:initial-max-items="30"
 		/>
 	</DashboardBaseWrapper>
 </template>
