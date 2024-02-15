@@ -7,5 +7,9 @@ class ConfigurationModel(BaseModel):
     replace_names: bool = False
 
 
-class DataOwnerModel(BaseModel):
+class DataOwnerResponse(BaseModel):
     data_owner: str
+
+
+class IsDataLoadedResponse(BaseModel):
+    is_data_loaded: bool

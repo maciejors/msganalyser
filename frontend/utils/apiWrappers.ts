@@ -45,12 +45,8 @@ export async function loadData(
  * @returns Whether or not the data is loaded.
  */
 export async function getIsDataLoaded(): Promise<boolean> {
-	try {
-		await axios.get('/setup');
-	} catch (_) {
-		return false;
-	}
-	return true;
+	const response = await axios.get('/setup');
+	return response.data.is_data_loaded;
 }
 
 export async function genericGet<T>(endpoint: string, filters: Filters): Promise<T> {
