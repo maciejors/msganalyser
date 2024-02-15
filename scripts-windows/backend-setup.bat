@@ -4,4 +4,4 @@ python -m venv venv
 venv\Scripts\activate
 pip install -r requirements.txt
 cd ..
-uvicorn backend.main:app --log-config=backend/log_config.yml
+uvicorn backend.main:app --log-config=backend\log_config.yml
