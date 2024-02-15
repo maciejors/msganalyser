@@ -1,5 +1,5 @@
 <template>
-	<DashboardBaseWrapper :dashboardElement="meta">
+	<DashboardBaseWrapper :dashboard-element="meta">
 		<template v-slot:description>
 			<p>
 				The ranking of chats based on the longest streak of days with at least one message. Only
@@ -9,9 +9,9 @@
 		</template>
 		<TableChatRanking
 			:keys="data.chat_name"
-			:valuesNumericSorted="data.value"
-			:valuesDisplayed="valuesDisplayed"
-			valuesLabel="The longest streak length (count)"
+			:values-numeric-sorted="data.value"
+			:values-displayed="valuesDisplayed"
+			values-label="The longest streak length (count)"
 		/>
 	</DashboardBaseWrapper>
 </template>

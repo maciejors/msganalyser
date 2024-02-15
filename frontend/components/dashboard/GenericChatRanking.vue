@@ -5,9 +5,9 @@
 		</template>
 		<TableChatRanking
 			:keys="data.chat_name"
-			:valuesNumericSorted="data.value"
-			:valuesDisplayed="valuesDisplayed"
-			:valuesLabel="valuesLabel"
+			:values-numeric-sorted="data.value"
+			:values-displayed="valuesDisplayed"
+			:values-label="valuesLabel"
 		/>
 	</DashboardBaseWrapper>
 </template>

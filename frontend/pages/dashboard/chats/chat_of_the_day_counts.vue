@@ -1,9 +1,9 @@
 <template>
 	<DashboardGenericChatRanking
-		dashboardElementId="chat_of_the_day_counts"
-		rankingDescription="Ranking of chats based on how many times a chat was the chat of the day, i.e. had the most
+		dashboard-element-id="chat_of_the_day_counts"
+		ranking-description="Ranking of chats based on how many times a chat was the chat of the day, i.e. had the most
 			messages of all chats on a day."
-		valuesLabel="'Chat of the day' count"
+		values-label="'Chat of the day' count"
 	/>
 </template>
 

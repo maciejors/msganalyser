@@ -1,5 +1,5 @@
 <template>
-	<DashboardBaseWrapper :dashboardElement="meta">
+	<DashboardBaseWrapper :dashboard-element="meta">
 		<template v-slot:description>
 			<p>{{ props.plotDescription }}</p>
 		</template>

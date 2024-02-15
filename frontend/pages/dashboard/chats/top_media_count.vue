@@ -1,8 +1,8 @@
 <template>
 	<DashboardGenericChatRanking
-		dashboardElementId="top_media_count"
-		rankingDescription="The ranking of chats based on the total number of media (photos, videos and files)."
-		valuesLabel="Total number of media"
+		dashboard-element-id="top_media_count"
+		ranking-description="The ranking of chats based on the total number of media (photos, videos and files)."
+		values-label="Total number of media"
 	/>
 </template>
 

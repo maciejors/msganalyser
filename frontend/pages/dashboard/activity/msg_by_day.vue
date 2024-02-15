@@ -1,8 +1,8 @@
 <template>
 	<DashboardGenericActivity
-		dashboardElementId="msg_by_day"
-		plotDescription="This plot shows how many messages have been sent and/or received on each day."
-		barValuesLabel="Messages count"
+		dashboard-element-id="msg_by_day"
+		plot-description="This plot shows how many messages have been sent and/or received on each day."
+		bar-values-label="Messages count"
 	/>
 </template>
 

@@ -1,9 +1,9 @@
 <template>
 	<DashboardGenericChatRanking
-		dashboardElementId="top_calls_duration"
-		rankingDescription="The ranking of chats based on the total duration of calls."
-		valuesLabel="Total duration of calls"
-		:valuesDisplayedMapper="valuesDisplayedMapper"
+		dashboard-element-id="top_calls_duration"
+		ranking-description="The ranking of chats based on the total duration of calls."
+		values-label="Total duration of calls"
+		:values-displayed-mapper="valuesDisplayedMapper"
 	/>
 </template>
 

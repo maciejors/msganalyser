@@ -1,8 +1,8 @@
 <template>
 	<DashboardGenericChatRanking
-		dashboardElementId="days_with_msg_count"
-		rankingDescription="The ranking of chats based on the number of days with at least one message."
-		valuesLabel="Number of days with at least one message"
+		dashboard-element-id="days_with_msg_count"
+		ranking-description="The ranking of chats based on the number of days with at least one message."
+		values-label="Number of days with at least one message"
 	/>
 </template>
 
