@@ -8,7 +8,7 @@
 				</button>
 			</nav>
 			<section>
-				<h4>Date range:</h4>
+				<h4>Date range (inclusive):</h4>
 				<ul class="flex flex-col gap-2">
 					<li class="datepicker-container">
 						<p>From:</p>

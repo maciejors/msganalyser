@@ -1,11 +1,14 @@
 import { defineStore } from 'pinia';
 import type { Filters } from '../utils/filtersInterface';
 
-function dateStrToTimestampMs(dateStr: string): number {
+function dateStrToTimestampMs(dateStr: string, endOfDay: boolean): number {
 	if (dateStr === '') {
 		return -1;
 	}
 	const date = new Date(dateStr);
+	if (endOfDay) {
+		date.setHours(23, 59, 59, 999);
+	}
 	const timestampMs = date.getTime();
 	return timestampMs;
 }
@@ -21,8 +24,8 @@ export const useFiltersStore = defineStore('filtersStore', {
 	getters: {
 		getFilters(): Filters {
 			return {
-				timestampMsFrom: dateStrToTimestampMs(this.dateFrom),
-				timestampMsTo: dateStrToTimestampMs(this.dateTo),
+				timestampMsFrom: dateStrToTimestampMs(this.dateFrom, false),
+				timestampMsTo: dateStrToTimestampMs(this.dateTo, true),
 				chatType: this.chatType,
 				messageType: this.messageType,
 			};
