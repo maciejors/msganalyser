@@ -5,7 +5,7 @@
 		</template>
 		<TableChat
 			:keys-label="datesLabel"
-			:keys="data.key.map((d) => d.toString())"
+			:keys="data.datetime_key.map((d) => d.toString())"
 			:chat-names="data.chat_name"
 			:values-numeric="data.value"
 			:values-displayed="valuesDisplayed"

@@ -13,11 +13,11 @@ def msg_by_day(df: pd.DataFrame) -> pd.DataFrame:
     pretty_day_series = df['timestamp_ms'] \
         .map(get_sortable_day_str_from_timestamp) \
         .map(get_pretty_day_str_from_sortable)
-    result = df.assign(key=pretty_day_series) \
-        .groupby(['year', 'month', 'day', 'key']) \
+    result = df.assign(datetime_key=pretty_day_series) \
+        .groupby(['year', 'month', 'day', 'datetime_key']) \
         .count() \
         .reset_index() \
         .sort_values(['year', 'month', 'day']) \
-        [['key', 'sender_name']] \
+        [['datetime_key', 'sender_name']] \
         .rename(columns={'sender_name': 'value'})
     return result

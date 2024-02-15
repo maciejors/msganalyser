@@ -4,7 +4,7 @@ import type { Filters } from './filtersInterface';
 axios.defaults.baseURL = 'http://localhost:8000/api';
 
 export interface DatetimeActivityStat {
-	key: string[] | number[];
+	datetime_key: string[] | number[];
 	value: number[];
 }
 

@@ -38,7 +38,7 @@ const data = await genericGet<DatetimeActivityStat>(
 );
 
 const chartData = {
-	labels: data.key,
+	labels: data.datetime_key,
 	datasets: [
 		{
 			data: data.value,
