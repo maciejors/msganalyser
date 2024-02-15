@@ -13,6 +13,7 @@ import { dashboardElementsData, defaultChartColour } from '../../utils/dashboard
 import { genericGet } from '../../utils/apiWrappers';
 import type { DatetimeActivityStat } from '../../utils/apiWrappers';
 import { useFiltersStore } from '../../stores/filters';
+import { getIsDataLoaded } from '../../utils/apiWrappers';
 
 const props = defineProps({
 	dashboardElementId: {
@@ -30,22 +31,28 @@ const props = defineProps({
 });
 
 const filtersStore = useFiltersStore();
-
 const meta = dashboardElementsData.get(props.dashboardElementId)!;
-const data = await genericGet<DatetimeActivityStat>(
-	`${meta.group}${meta.routeRelative}`,
-	filtersStore.getFilters
-);
 
 const chartData = {
-	labels: data.datetime_key,
+	labels: [''],
 	datasets: [
 		{
-			data: data.value,
+			data: [0],
 			label: props.barValuesLabel,
 			backgroundColor: defaultChartColour,
 		},
 	],
 };
 const chartOptions = {};
+
+if (!(await getIsDataLoaded())) {
+	await navigateTo('/');
+} else {
+	const data = await genericGet<DatetimeActivityStat>(
+		`${meta.group}${meta.routeRelative}`,
+		filtersStore.getFilters
+	);
+	chartData.labels = data.datetime_key;
+	chartData.datasets[0].data = data.value;
+}
 </script>

@@ -19,11 +19,12 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue';
+import { computed, reactive } from 'vue';
 import { dashboardElementsData } from '../../../utils/dashboardMeta';
 import { genericGet } from '../../../utils/apiWrappers';
 import type { ChatStreakStat } from '../../../utils/apiWrappers';
 import { useFiltersStore } from '../../../stores/filters';
+import { getIsDataLoaded } from '../../../utils/apiWrappers';
 
 definePageMeta({
 	layout: 'dashboard',
@@ -32,12 +33,23 @@ definePageMeta({
 const filtersStore = useFiltersStore();
 
 const meta = dashboardElementsData.get('longest_streaks')!;
-const data = await genericGet<ChatStreakStat>(
-	`${meta.group}${meta.routeRelative}`,
-	filtersStore.getFilters
-);
+let data: ChatStreakStat = {
+	chat_name: [],
+	value: [],
+	count: [],
+};
+
 const valuesDisplayed = computed(() => data.value.map((len, i) => `${len} (${data.count[i]})`));
-const positions = Array.from({ length: data.chat_name.length }, (_, i) => i + 1).map((p) =>
-	p.toString()
+const positions = computed(() =>
+	Array.from({ length: data.chat_name.length }, (_, i) => i + 1).map((p) => p.toString())
 );
+
+if (!(await getIsDataLoaded())) {
+	await navigateTo('/');
+} else {
+	data = await genericGet<ChatStreakStat>(
+		`${meta.group}${meta.routeRelative}`,
+		filtersStore.getFilters
+	);
+}
 </script>

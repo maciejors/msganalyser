@@ -16,10 +16,12 @@
 </template>
 
 <script setup lang="ts">
+import { computed } from 'vue';
 import { dashboardElementsData } from '../../utils/dashboardMeta';
 import { genericGet } from '../../utils/apiWrappers';
 import type { DateChatStat } from '../../utils/apiWrappers';
 import { useFiltersStore } from '../../stores/filters';
+import { getIsDataLoaded } from '../../utils/apiWrappers';
 
 const props = defineProps({
 	dashboardElementId: {
@@ -47,9 +49,19 @@ const props = defineProps({
 const filtersStore = useFiltersStore();
 
 const meta = dashboardElementsData.get(props.dashboardElementId)!;
-const data = await genericGet<DateChatStat>(
-	`${meta.group}${meta.routeRelative}`,
-	filtersStore.getFilters
-);
-const valuesDisplayed = props.valuesDisplayedMapper(data);
+let data: DateChatStat = {
+	datetime_key: [],
+	value: [],
+	chat_name: [],
+};
+const valuesDisplayed = computed(() => props.valuesDisplayedMapper(data));
+
+if (!(await getIsDataLoaded())) {
+	await navigateTo('/');
+} else {
+	data = await genericGet<DateChatStat>(
+		`${meta.group}${meta.routeRelative}`,
+		filtersStore.getFilters
+	);
+}
 </script>

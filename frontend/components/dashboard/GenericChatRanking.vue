@@ -16,10 +16,12 @@
 </template>
 
 <script setup lang="ts">
+import { computed, reactive } from 'vue';
 import { dashboardElementsData } from '../../utils/dashboardMeta';
 import { genericGet } from '../../utils/apiWrappers';
 import type { ChatStat } from '../../utils/apiWrappers';
 import { useFiltersStore } from '../../stores/filters';
+import { getIsDataLoaded } from '../../utils/apiWrappers';
 
 const props = defineProps({
 	dashboardElementId: {
@@ -44,12 +46,19 @@ const props = defineProps({
 const filtersStore = useFiltersStore();
 
 const meta = dashboardElementsData.get(props.dashboardElementId)!;
-const data = await genericGet<ChatStat>(
-	`${meta.group}${meta.routeRelative}`,
-	filtersStore.getFilters
+let data: ChatStat = reactive({
+	chat_name: [],
+	value: [],
+});
+
+const valuesDisplayed = computed(() => props.valuesDisplayedMapper(data));
+const positions = computed(() =>
+	Array.from({ length: data.chat_name.length }, (_, i) => i + 1).map((p) => p.toString())
 );
-const valuesDisplayed = props.valuesDisplayedMapper(data);
-const positions = Array.from({ length: data.chat_name.length }, (_, i) => i + 1).map((p) =>
-	p.toString()
-);
+
+if (!(await getIsDataLoaded())) {
+	await navigateTo('/');
+} else {
+	data = await genericGet<ChatStat>(`${meta.group}${meta.routeRelative}`, filtersStore.getFilters);
+}
 </script>

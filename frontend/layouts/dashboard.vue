@@ -26,11 +26,6 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import FilterIcon from 'vue-material-design-icons/Filter.vue';
-import { getIsDataLoaded } from '../utils/apiWrappers';
-
-if (!(await getIsDataLoaded())) {
-	await navigateTo('/');
-}
 
 const areFiltersVisible = ref(false);
 
