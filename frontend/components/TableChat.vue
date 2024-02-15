@@ -1,21 +1,31 @@
 <template>
-	<ol class="flex flex-col gap-4 w-full">
-		<div class="ranking-tile-layout">
-			<p class="col-span-1">{{ keysLabel }}</p>
-			<p class="col-span-4">Chat name</p>
-			<p class="col-span-7">{{ valuesLabel }}</p>
+	<NoDataIndicator v-if="items.length === 0" />
+	<div v-else>
+		<ol class="flex flex-col gap-4 w-full">
+			<div class="ranking-tile-layout">
+				<p class="col-span-1">{{ keysLabel }}</p>
+				<p class="col-span-4">Chat name</p>
+				<p class="col-span-7">{{ valuesLabel }}</p>
+			</div>
+			<li v-for="item in items" class="ranking-tile">
+				<p class="col-span-1">{{ item.key }}</p>
+				<p class="col-span-4">{{ item.chatName }}</p>
+				<p class="col-span-1">{{ item.valueDisplayed }}</p>
+				<div
+					class="col-span-6 bar"
+					:style="`width: ${(item.valueNumeric / maxValue) * 100}%;`"
+				></div>
+			</li>
+		</ol>
+		<div class="flex flex-row justify-center">
+			<button
+				@click="showMoreItems"
+				class="btn w-52 h-12"
+				v-show="displayedItemsCount < keys.length"
+			>
+				Show more
+			</button>
 		</div>
-		<li v-for="item in items" class="ranking-tile">
-			<p class="col-span-1">{{ item.key }}</p>
-			<p class="col-span-4">{{ item.chatName }}</p>
-			<p class="col-span-1">{{ item.valueDisplayed }}</p>
-			<div class="col-span-6 bar" :style="`width: ${(item.valueNumeric / maxValue) * 100}%;`"></div>
-		</li>
-	</ol>
-	<div class="flex flex-row justify-center">
-		<button @click="showMoreItems" class="btn w-52 h-12" v-show="displayedItemsCount < keys.length">
-			Show more
-		</button>
 	</div>
 </template>
 

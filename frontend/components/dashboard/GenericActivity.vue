@@ -3,7 +3,8 @@
 		<template v-slot:description>
 			<p>{{ props.plotDescription }}</p>
 		</template>
-		<Bar :options="chartOptions" :data="chartData" />
+		<Bar v-if="chartData.labels.length > 0" :options="chartOptions" :data="chartData" />
+		<NoDataIndicator v-else />
 	</DashboardBaseWrapper>
 </template>
 
