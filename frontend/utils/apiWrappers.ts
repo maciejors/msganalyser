@@ -3,6 +3,15 @@ import type { Filters } from './filtersInterface';
 
 axios.defaults.baseURL = 'http://localhost:8000/api';
 
+export interface OverviewData {
+	total_msg_count: number[];
+	total_calls_count: number[];
+	total_calls_duration_s: number[];
+	total_media_count: number[];
+	favourite_chat: string[];
+	most_active_day: string[];
+}
+
 export interface DatetimeActivityStat {
 	datetime_key: string[];
 	value: number[];

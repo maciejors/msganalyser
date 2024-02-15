@@ -4,7 +4,9 @@
 			<h5>{{ dashboardGroupsData.get(dashboardElement.group)!.name }}</h5>
 			<h2>{{ dashboardElement.name }}</h2>
 		</header>
-		<slot name="description" />
+		<div class="flex flex-col gap-1 text-justify">
+			<slot name="description" />
+		</div>
 		<slot />
 	</main>
 </template>
