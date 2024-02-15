@@ -31,23 +31,21 @@ export interface ChatStreakStat extends ChatStat {
 }
 
 /**
- * @returns Whether or not the data has been loaded successfully.
+ * @returns Path to compacted data if saved, otherwise an empty string.
  */
 export async function loadData(
 	dataPath: string,
 	purgeContents: boolean,
-	replaceNames: boolean
-): Promise<boolean> {
-	try {
-		await axios.put('/setup', {
-			data_path: dataPath,
-			purge_contents: purgeContents,
-			replace_names: replaceNames,
-		});
-	} catch (_) {
-		return false;
-	}
-	return true;
+	replaceNames: boolean,
+	saveCompactedData: boolean
+): Promise<string> {
+	const response = await axios.put('/setup', {
+		data_path: dataPath,
+		purge_contents: purgeContents,
+		replace_names: replaceNames,
+		save_compact: saveCompactedData,
+	});
+	return response.data.path_to_compact;
 }
 
 /**

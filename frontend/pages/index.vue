@@ -1,5 +1,5 @@
 <template>
-	<main class="flex flex-col items-center pt-4 gap-4 px-2">
+	<main class="flex flex-col items-center pt-4 pb-8 gap-4 px-2 text-justify">
 		<h2>Welcome to <span class="app-name">msganalyser</span></h2>
 		<form @submit.prevent="onConfirm">
 			<h3>Setup</h3>
@@ -22,6 +22,21 @@
 					<p class="text-gray-500 ml-6">{{ anonOpt.description }}</p>
 				</div>
 			</section>
+			<section>
+				<h4>Other options:</h4>
+				<div class="flex flex-row items-center">
+					<input type="checkbox" id="save-compact" v-model="isSaveCompactSelected" />
+					<label for="save-compact" class="pl-2 cursor-pointer">Save compacted data</label>
+				</div>
+				<p class="text-gray-500 ml-6">
+					If selected, a compacted version of your Facebook data will be saved to the same location
+					as specified above. Unlike the original data, the compacted version will not contain any
+					media files which significantly reduces its size and loading time. It is recommended to
+					select this option if you are going to load this data multiple times or want to preserve
+					this data for analysis later. Once compacted data is saved, the original Facebook data can
+					be removed.
+				</p>
+			</section>
 			<div class="flex flex-col items-center gap-1">
 				<button class="btn font-bold h-16 w-36" :disabled="isDataLoading">
 					<Spinner v-if="isDataLoading" size="32px" width="4px" />
@@ -34,8 +49,9 @@
 				</p>
 			</div>
 		</form>
-		<div v-if="isDataLoaded && !isDataLoading" class="flex flex-col items-center gap-1">
-			<h4>
+		<div v-show="isDataLoaded && !isDataLoading" class="flex flex-col items-center gap-1">
+			<p v-if="pathToCompact !== ''">Compacted data saved to: {{ pathToCompact }}</p>
+			<h4 id="dashboard-link">
 				Your data is now loaded!
 				<NuxtLink to="/dashboard" class="link-btn font-bold">
 					Click here to go to the analysis dashboard
@@ -46,6 +62,7 @@
 </template>
 
 <script lang="ts">
+import { ref } from 'vue';
 import { loadData, getIsDataLoaded } from '../utils/apiWrappers';
 
 interface AnonymisationOptionDetails {
@@ -64,8 +81,10 @@ export default {
 			isDataLoading: false,
 			isDataLoaded: false,
 			isLoadingDataFailed: false,
+			pathToCompact: '',
 			pathToData: './data',
 			selectedAnonOptions: ['purgemsg'] as string[],
+			isSaveCompactSelected: false,
 			anonOptionsDetails: [
 				{
 					value: 'purgemsg',
@@ -94,12 +113,16 @@ export default {
 			this.isDataLoading = true;
 			const purgeContents = this.selectedAnonOptions.includes('purgemsg');
 			const replaceNames = this.selectedAnonOptions.includes('chatnames');
-			const isSuccess = await loadData(this.pathToData, purgeContents, replaceNames);
-			console.log('hello');
-			if (isSuccess) {
+			try {
+				this.pathToCompact = await loadData(
+					this.pathToData,
+					purgeContents,
+					replaceNames,
+					this.isSaveCompactSelected
+				);
 				this.isLoadingDataFailed = false;
 				this.isDataLoaded = true;
-			} else {
+			} catch (_) {
 				this.isLoadingDataFailed = true;
 			}
 			this.isDataLoading = false;
@@ -114,7 +137,7 @@ export default {
 }
 
 form {
-	@apply border border-gray-400 rounded-xl px-4 pt-4 pb-2 mt-4 max-w-4xl;
+	@apply border border-gray-400 rounded-xl px-4 pt-4 pb-2 mt-4 max-w-5xl;
 	@apply flex flex-col gap-6;
 }
 
