@@ -3,7 +3,7 @@
 		<template v-slot:description>
 			<p>
 				Welcome to the dashboard! Feel free to browse various analysis by exploring different tabs
-				listed on the left hand side. You can also filter your data - filtering options can be
+				listed on the left-hand side. You can also filter your data - filtering options can be
 				viewed by pressing the "Filter input data" button in the top-right corner. If you wish to
 				change data anonymisation options, or simply load completely different data, you can go back
 				to the setup page by pressing the "Go back to the setup page" link in the nav bar.
