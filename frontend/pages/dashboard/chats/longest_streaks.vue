@@ -7,7 +7,8 @@
 				streak count is used.
 			</p>
 		</template>
-		<TableChatRanking
+		<TableChat
+			keys-label="No."
 			:keys="data.chat_name"
 			:values-numeric-sorted="data.value"
 			:values-displayed="valuesDisplayed"

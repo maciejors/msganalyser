@@ -1,24 +1,15 @@
 <template>
-	<DashboardBaseWrapper :dashboardElement="meta">
-		<template v-slot:description>
-			<p>{{ props.rankingDescription }}</p>
-		</template>
-		<TableChatRanking
-			:keys="data.chat_name"
-			:values-numeric-sorted="data.value"
-			:values-displayed="valuesDisplayed"
-			:values-label="valuesLabel"
-		/>
-	</DashboardBaseWrapper>
+	<DashboardGenericChatTabular
+		keys-label="No."
+		:dashboard-element-id="dashboardElementId"
+		:ranking-description="rankingDescription"
+		:values-label="valuesLabel"
+		:values-displayed-mapper="valuesDisplayedMapper"
+	/>
 </template>
 
 <script setup lang="ts">
-import { dashboardElementsData } from '../../utils/dashboardMeta';
-import { genericGet } from '../../utils/apiWrappers';
-import type { ChatStat } from '../../utils/apiWrappers';
-import { useFiltersStore } from '../../stores/filters';
-
-const props = defineProps({
+defineProps({
 	dashboardElementId: {
 		type: String,
 		required: true,
@@ -37,13 +28,4 @@ const props = defineProps({
 		default: <T extends ChatStat>(data: T) => data.value,
 	},
 });
-
-const filtersStore = useFiltersStore();
-
-const meta = dashboardElementsData.get(props.dashboardElementId)!;
-const data = await genericGet<ChatStat>(
-	`${meta.group}${meta.routeRelative}`,
-	filtersStore.getFilters
-);
-const valuesDisplayed = props.valuesDisplayedMapper(data);
 </script>
