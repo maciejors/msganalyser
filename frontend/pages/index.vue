@@ -62,7 +62,6 @@
 </template>
 
 <script lang="ts">
-import { ref } from 'vue';
 import { loadData, getIsDataLoaded } from '../utils/apiWrappers';
 
 interface AnonymisationOptionDetails {
