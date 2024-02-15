@@ -1,26 +1,30 @@
 <template>
-	<nav>
-		<div class="col-start-2 col-span-10 flex flex-row justify-between items-center py-4">
-			<h1>msganalyser</h1>
-			<div class="flex flex-row items-center gap-8">
-				<p>
-					<NuxtLink to="/" class="link-btn text-lg">Go back to the setup page</NuxtLink>
-				</p>
-				<button @click="showFilters" class="btn"><filter-icon /> Filter input data</button>
+	<div class="max-h-full">
+		<nav
+			class="sticky top-0 w-full z-40 px-40 border-b border-gray-900 bg-black bg-opacity-25 backdrop-blur"
+		>
+			<div class="col-start-2 col-span-10 flex flex-row justify-between items-center py-4">
+				<h1>msganalyser</h1>
+				<div class="flex flex-row items-center gap-8">
+					<p>
+						<NuxtLink to="/" class="link-btn text-lg">Go back to the setup page</NuxtLink>
+					</p>
+					<button @click="showFilters" class="btn"><filter-icon /> Filter input data</button>
+				</div>
 			</div>
-		</div>
-	</nav>
-	<Filters
-		@hideFilters="hideFilters"
-		:class="{ 'translate-x-96': !areFiltersVisible }"
-		class="transition-transform ease-out"
-	/>
-	<main class="grid grid-cols-12 gap-2 mb-16">
-		<Menu class="col-start-2 col-span-2" />
-		<div class="col-span-8">
-			<slot />
-		</div>
-	</main>
+		</nav>
+		<Filters
+			@hideFilters="hideFilters"
+			:class="{ 'translate-x-96': !areFiltersVisible }"
+			class="transition-transform ease-out"
+		/>
+		<main class="px-40 mb-16">
+			<Menu class="fixed max-w-64 overflow-y-auto py-4 pr-2" />
+			<div class="pl-72 pt-4">
+				<slot />
+			</div>
+		</main>
+	</div>
 </template>
 
 <script setup lang="ts">
@@ -39,9 +43,7 @@ function hideFilters() {
 </script>
 
 <style scoped>
-nav {
-	@apply grid grid-cols-12 gap-2;
-	@apply sticky top-0 w-full z-40 mb-4;
-	@apply border-b border-gray-900 bg-black bg-opacity-25 backdrop-blur;
+main aside {
+	max-height: calc(100% - 5em);
 }
 </style>
