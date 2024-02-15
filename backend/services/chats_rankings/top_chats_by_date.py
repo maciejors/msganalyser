@@ -20,7 +20,7 @@ def top_chats_by_year(df: pd.DataFrame) -> pd.DataFrame:
     result = yearly_counts_chats \
         .loc[yearly_counts_chats.groupby(['year'])['value'].idxmax()] \
         .rename(columns={'year': 'key'}) \
-        .sort_values('key')
+        .sort_values('key', ascending=False)
     return result
 
 
@@ -38,7 +38,7 @@ def top_chats_by_month(df: pd.DataFrame) -> pd.DataFrame:
         .rename(columns={'sender_name': 'value'})
     result = monthly_counts_chats \
         .loc[monthly_counts_chats.groupby(['key'])['value'].idxmax()] \
-        .sort_values(['year', 'month'])
+        .sort_values(['year', 'month'], ascending=False)
     return result[['key', 'chat_name', 'value']]
 
 
@@ -56,7 +56,7 @@ def top_chats_by_day(df: pd.DataFrame) -> pd.DataFrame:
         .rename(columns={'sender_name': 'value'})
     result = daily_counts_chats \
         .loc[daily_counts_chats.groupby(['key'])['value'].idxmax()] \
-        .sort_values(['year', 'month', 'day'])
+        .sort_values(['year', 'month', 'day'], ascending=False)
     return result[['key', 'chat_name', 'value']]
 
 
