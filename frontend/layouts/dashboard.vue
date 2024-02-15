@@ -19,7 +19,7 @@
 			class="transition-transform ease-out"
 		/>
 		<main class="responsive-side-padding mb-16">
-			<Menu class="fixed max-w-40 lg:max-w-64 overflow-y-auto py-4 pr-2" />
+			<Menu class="fixed max-w-40 lg:max-w-64 overflow-y-auto pt-4 pb-12 pr-2" />
 			<div class="pl-44 lg:pl-72 pt-4">
 				<slot />
 			</div>
