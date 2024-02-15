@@ -7,7 +7,7 @@ from backend.models.common import BaseAppErrorModel
 from backend.models.analysis import DateChatStat, ChatStat, ChatStreakStat
 
 from backend.services.chats_rankings.top_chats_by_date import (
-    top_chats_by_year, top_chats_by_month, top_chats_by_day, chat_of_the_day_counts,
+    top_chats_by_year, top_chats_by_month, top_chats_by_day, chat_of_the_day_counts, chat_of_the_month_counts,
 )
 from backend.services.chats_rankings.counting_messages import (
     top_msg_count, top_media_count,
@@ -67,6 +67,16 @@ async def get_chat_of_the_day_counts(request: Request, filters: StandardFiltersA
     except AttributeError:
         raise DataNotReadException()
     response = functionality_wrapper(chat_of_the_day_counts, df, filters, ChatStat)
+    return response
+
+
+@router.get('/chat_of_the_month_counts')
+async def get_chat_of_the_month_counts(request: Request, filters: StandardFiltersAnnotated) -> ChatStat:
+    try:
+        df = request.app.state.data_df
+    except AttributeError:
+        raise DataNotReadException()
+    response = functionality_wrapper(chat_of_the_month_counts, df, filters, ChatStat)
     return response
 
 

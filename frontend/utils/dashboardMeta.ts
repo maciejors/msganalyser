@@ -53,6 +53,10 @@ export const dashboardElementsData = new Map<string, DashboardElement>([
 		{ name: 'Chat of the day', routeRelative: '/chat_of_the_day_counts', group: 'chats' },
 	],
 	[
+		'chat_of_the_month_counts',
+		{ name: 'Chat of the month', routeRelative: '/chat_of_the_month_counts', group: 'chats' },
+	],
+	[
 		'top_msg_count',
 		{ name: 'Top messages count', routeRelative: '/top_msg_count', group: 'chats' },
 	],
@@ -111,6 +115,7 @@ export const dashboardGroupsData = new Map<string, DashboardGroup>([
 				'top_chats_by_month',
 				'top_chats_by_day',
 				'chat_of_the_day_counts',
+				'chat_of_the_month_counts',
 				'top_msg_count',
 				'top_media_count',
 				'top_calls_count',

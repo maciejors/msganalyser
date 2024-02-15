@@ -72,3 +72,16 @@ def chat_of_the_day_counts(df: pd.DataFrame) -> pd.DataFrame:
         .reset_index() \
         .sort_values('value', ascending=False)
     return result[['chat_name', 'value']]
+
+
+def chat_of_the_month_counts(df: pd.DataFrame) -> pd.DataFrame:
+    """
+    How many times each chat was the chat of the month, i.e. had the most
+    messages of all chats in a month.
+    """
+    result = top_chats_by_month(df) \
+        .groupby('chat_name') \
+        .count() \
+        .reset_index() \
+        .sort_values('value', ascending=False)
+    return result[['chat_name', 'value']]
