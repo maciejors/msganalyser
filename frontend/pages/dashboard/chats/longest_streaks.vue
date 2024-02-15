@@ -9,8 +9,9 @@
 		</template>
 		<TableChat
 			keys-label="No."
-			:keys="data.chat_name"
-			:values-numeric-sorted="data.value"
+			:keys="positions"
+			:chat-names="data.chat_name"
+			:values-numeric="data.value"
 			:values-displayed="valuesDisplayed"
 			values-label="The longest streak length (count)"
 		/>
@@ -36,4 +37,7 @@ const data = await genericGet<ChatStreakStat>(
 	filtersStore.getFilters
 );
 const valuesDisplayed = computed(() => data.value.map((len, i) => `${len} (${data.count[i]})`));
+const positions = Array.from({ length: data.chat_name.length }, (_, i) => i + 1).map((p) =>
+	p.toString()
+);
 </script>
