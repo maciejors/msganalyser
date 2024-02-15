@@ -1,4 +1,5 @@
 cd frontend
 npm install
-npm run build
-node .output/server/index.mjs
+npm run dev
+# npm run build
+# node .output/server/index.mjs
