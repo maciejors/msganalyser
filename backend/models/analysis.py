@@ -8,7 +8,7 @@ class DatetimeActivityStat(BaseModel):
 
     This is used for activity analysis where no chat name is needed.
     """
-    datetime_key: list[str] | list[int]
+    datetime_key: list[str]
     value: list[int]
     
 

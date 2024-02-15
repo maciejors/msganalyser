@@ -11,4 +11,5 @@ def msg_by_year(df: pd.DataFrame) -> pd.DataFrame:
         .reset_index() \
         .rename(columns={'year': 'datetime_key', 'sender_name': 'value'}) \
         .sort_values('datetime_key')
+    result['datetime_key'] = result['datetime_key'].astype(str)
     return result

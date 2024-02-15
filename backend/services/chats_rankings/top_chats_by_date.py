@@ -21,6 +21,7 @@ def top_chats_by_year(df: pd.DataFrame) -> pd.DataFrame:
         .loc[yearly_counts_chats.groupby(['year'])['value'].idxmax()] \
         .rename(columns={'year': 'datetime_key'}) \
         .sort_values('datetime_key', ascending=False)
+    result['datetime_key'] = result['datetime_key'].astype(str)
     return result
 
 

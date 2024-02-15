@@ -37,4 +37,5 @@ def avg_msg_by_calendar_month(df: pd.DataFrame) -> pd.DataFrame:
         .astype(int)
     result = avg_by_month[['month', 'value']] \
         .rename(columns={'month': 'datetime_key'})
+    result['datetime_key'] = result['datetime_key'].astype(str)
     return result
