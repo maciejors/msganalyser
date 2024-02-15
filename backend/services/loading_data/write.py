@@ -13,7 +13,7 @@ def write_compact(df: pd.DataFrame, data_path: str) -> str:
     to load back. Returns the location where the file was saved.
     """
     _logger.info('Writing compacted data...')
-    save_path = f'{data_path}/compacted-data_{datetime.now()}.compact.csv'
-    df.to_csv(save_path)
+    save_path = f'{data_path}/compacted-data_{datetime.now()}.compact.pickle'
+    df.to_pickle(save_path)
     _logger.info(f'Done. Saved to {save_path}.')
     return save_path

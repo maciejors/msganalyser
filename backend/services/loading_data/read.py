@@ -322,17 +322,17 @@ def __read_compact(data_path: str) -> pd.DataFrame:
 
     # check if there are any compacted files
     all_files = os.listdir(data_path)
-    compact_files = [filename for filename in all_files if filename.endswith('.compact.csv')]
+    compact_files = [filename for filename in all_files if filename.endswith('.compact.pickle')]
     n_of_files = len(compact_files)
     if n_of_files == 0:
         raise FileNotFoundError('No compacted data found.')
-    path_to_csv = compact_files[0]
+    path_to_compact = compact_files[0]
     if n_of_files == 1:
-        _logger.info(f'Found 1 compacted file: {path_to_csv}')
+        _logger.info(f'Found 1 compacted file: {path_to_compact}')
     else:
-        _logger.warning(f'Found multiple compacted files. Only the first one will be read: {path_to_csv}')
+        _logger.warning(f'Found multiple compacted files. Only the first one will be read: {path_to_compact}')
     _logger.info('Reading compacted file...')
-    df = pd.read_csv(os.path.join(data_path, path_to_csv))
+    df = pd.read_pickle(os.path.join(data_path, path_to_compact))
     _logger.info('Done.')
     return df
 
