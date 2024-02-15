@@ -6,7 +6,7 @@ import logging
 import pandas as pd
 
 
-_logger = logging.getLogger('services.reading_data')
+_logger = logging.getLogger('services.loading_data')
 
 PATH_TO_SUBSTITUTE_NAMES = './backend/static/substitute_names.json'
 

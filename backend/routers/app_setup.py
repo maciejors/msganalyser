@@ -1,12 +1,13 @@
 from fastapi import APIRouter, Request
 from fastapi.responses import JSONResponse
 
-from backend.models.app_setup import ConfigurationModel, DataOwnerResponse, IsDataLoadedResponse
+from backend.models.app_setup import ConfigurationModel, SetupSuccessRespose, IsDataLoadedResponse
 from backend.models.common import BaseAppErrorModel
-from backend.services.reading_data.read import (
+from backend.services.loading_data.read import (
     read_messenger_data, infer_data_owner,
 )
-from backend.services.reading_data.anonymiser import anonymise_data
+from backend.services.loading_data.write import write_compact
+from backend.services.loading_data.anonymiser import anonymise_data
 
 router = APIRouter(
     prefix='/setup',
@@ -16,7 +17,7 @@ router = APIRouter(
 
 @router.put(
     '/',
-    response_model=DataOwnerResponse,
+    response_model=SetupSuccessRespose,
     responses={404: {
         'description': 'Data not found in the specified location',
         'model': BaseAppErrorModel,
@@ -25,6 +26,9 @@ router = APIRouter(
 async def setup(request: Request, config: ConfigurationModel):
     try:
         full_data_df = read_messenger_data(config.data_path)
+        compact_save_location = ''
+        if config.save_compact:
+            compact_save_location = write_compact(full_data_df, config.data_path)
         full_data_df = anonymise_data(
             full_data_df,
             purge_contents=config.purge_contents,
@@ -38,7 +42,7 @@ async def setup(request: Request, config: ConfigurationModel):
     data_owner = infer_data_owner(full_data_df)
     request.app.state.data_df = full_data_df
     request.app.state.data_owner = data_owner
-    return DataOwnerResponse(data_owner=data_owner)
+    return SetupSuccessRespose(data_owner=data_owner, path_to_compact=compact_save_location)
 
 
 @router.get('/')

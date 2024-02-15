@@ -9,7 +9,8 @@ from datetime import datetime
 import numpy as np
 import pandas as pd
 
-_logger = logging.getLogger('services.reading_data')
+
+_logger = logging.getLogger('services.loading_data')
 
 
 def __extract_merged_inbox(fb_data_folder_path: str) -> str:
@@ -26,8 +27,11 @@ def __extract_merged_inbox(fb_data_folder_path: str) -> str:
 
     Returns:
         A path to a folder with extracted data
+
+    Raises:
+        FileNotFoundError: If no facebook data has been found
     """
-    _logger.info('Preparing for data extraction...')
+    _logger.info('Preparing for facebook data extraction...')
 
     # initial inspection of data - see how many zip files there are
     all_files = os.listdir(fb_data_folder_path)
@@ -299,6 +303,40 @@ def __read_extracted_data(path: str) -> pd.DataFrame:
     return full_data
 
 
+def __read_compact(data_path: str) -> pd.DataFrame:
+    """
+    Reads the entire messenger data from a compacted zip and stores
+    it in a data frame.
+
+    Args:
+        data_path: Path to the folder with the data, where compacted
+            data could potentially be found
+
+    Returns:
+        A data frame with the full messenger data
+
+    Raises:
+        FileNotFoundError: if no compacted data has been found
+    """
+    _logger.info('Looking for compacted data...')
+
+    # check if there are any compacted files
+    all_files = os.listdir(data_path)
+    compact_files = [filename for filename in all_files if filename.endswith('.compact.csv')]
+    n_of_files = len(compact_files)
+    if n_of_files == 0:
+        raise FileNotFoundError('No compacted data found.')
+    path_to_csv = compact_files[0]
+    if n_of_files == 1:
+        _logger.info(f'Found 1 compacted file: {path_to_csv}')
+    else:
+        _logger.warning(f'Found multiple compacted files. Only the first one will be read: {path_to_csv}')
+    _logger.info('Reading compacted file...')
+    df = pd.read_csv(os.path.join(data_path, path_to_csv))
+    _logger.info('Done.')
+    return df
+
+
 def read_messenger_data(data_path: str):
     """
     Reads the entire messenger inbox data and stores it in a data frame.
@@ -311,6 +349,10 @@ def read_messenger_data(data_path: str):
     Returns:
         A data frame with the full messenger data
     """
+    try:
+        return __read_compact(data_path)
+    except FileNotFoundError:
+        _logger.info('No compacted data found.')
     extracted_path = __extract_merged_inbox(data_path)
     full_data = __read_extracted_data(extracted_path)
     return full_data
