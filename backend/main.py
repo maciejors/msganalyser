@@ -2,7 +2,7 @@ from fastapi import FastAPI, Request
 from fastapi.responses import JSONResponse
 from fastapi.middleware.cors import CORSMiddleware
 
-from backend.routers import chats, activity, app_setup
+from backend.routers import chats, activity, app_setup, overview
 from backend.dependencies.errors import DataNotReadException
 
 
@@ -19,6 +19,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 app.include_router(app_setup.router)
+app.include_router(overview.router)
 app.include_router(activity.router)
 app.include_router(chats.router)
 

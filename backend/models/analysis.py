@@ -1,6 +1,19 @@
 from pydantic import BaseModel
 
 
+class Overview(BaseModel):
+    """
+    Represents general overview statictics. All attributes are one-element
+    lists.
+    """
+    total_msg_count: list[int]
+    total_calls_count: list[int]
+    total_calls_duration_s: list[int]
+    total_media_count: list[int]
+    favourite_chat: list[str]
+    most_active_day: list[str]
+
+
 class DatetimeActivityStat(BaseModel):
     """
     Represents one-dimenional statistics grouped by datetime or values
