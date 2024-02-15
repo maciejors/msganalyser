@@ -34,7 +34,7 @@
 				</p>
 			</div>
 		</form>
-		<div v-if="isDataLoaded" class="flex flex-col items-center gap-1">
+		<div v-if="isDataLoaded && !isDataLoading" class="flex flex-col items-center gap-1">
 			<h4>
 				Your data is now loaded!
 				<NuxtLink to="/dashboard" class="link-btn font-bold">

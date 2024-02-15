@@ -43,7 +43,7 @@ h6 {
 }
 
 .btn {
-  @apply inline-block p-2 rounded bg-primary hover:bg-primaryLight disabled:bg-primaryLight cursor-pointer;
+  @apply inline-block p-2 rounded bg-primary hover:bg-primaryLight disabled:bg-primaryLight enabled:cursor-pointer;
   @apply text-gray-50 flex flex-row justify-center items-center;
 }
 
