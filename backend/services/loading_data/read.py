@@ -87,10 +87,10 @@ def __extract_merged_inbox(fb_data_folder_path: str) -> str:
     for i in range(n_of_files):
         # since Meta introduced e2e encrypted chats, the chat data is split between two folders
         inbox_path_legacy = os.path.join(
-            extr_temp_dir, str(i), 'your_activity_across_facebook', 'messages', 'inbox'
+            extr_temp_dir, str(i), 'your_facebook_activity', 'messages', 'inbox'
         )
         inbox_path_e2ee = os.path.join(
-            extr_temp_dir, str(i), 'your_activity_across_facebook', 'messages', 'e2ee_cutover'
+            extr_temp_dir, str(i), 'your_facebook_activity', 'messages', 'e2ee_cutover'
         )
         for inbox_path in (inbox_path_legacy, inbox_path_e2ee):
             for chat_name in os.listdir(inbox_path):
